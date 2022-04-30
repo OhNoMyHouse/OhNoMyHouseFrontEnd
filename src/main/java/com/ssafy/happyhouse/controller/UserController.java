@@ -1,14 +1,16 @@
 package com.ssafy.happyhouse.controller;
 
-import java.sql.SQLException;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ssafy.happyhouse.model.dto.PageInfo;
 import com.ssafy.happyhouse.model.dto.User;
@@ -23,110 +25,64 @@ public class UserController {
     public void setUserService(UserService userService) {
 		this.userService = userService;
 	}
-
-//	@Override
-//    public PageInfo process(HttpServletRequest request, HttpServletResponse response) throws Exception {
-//        String subUrl = request.getServletPath().substring(5);
-//        if (subUrl.equals("/regist_form.do")) {
-//            return registForm(request, response);
-//        } else if (subUrl.equals("/regist.do")) {
-//            return registUser(request, response);
-//        } else if (subUrl.equals("/login_form.do")) {
-//            return loginForm(request, response);
-//        } else if (subUrl.equals("/login.do")) {
-//            return login(request, response);
-//        } else if (subUrl.equals("/logout.do")) {
-//            return logout(request, response);
-//        } else if (subUrl.equals("/update_form.do")) {
-//            return updateForm(request, response);
-//        } else if (subUrl.equals("/update.do")) {
-//            return update(request, response);
-//        } else if (subUrl.equals("/search_form.do")) {
-//            return searchForm(request, response);
-//        } else if (subUrl.equals("/search.do")) {
-//            return search(request, response);
-//        }
-//        return null;
-//    }
-
-    PageInfo registForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        return new PageInfo(true, "/user/regist.jsp");
+    
+    @PostMapping("/regist.do")
+    private String registUser(User user, Model model) {
+    	try {
+			userService.registUser(user);
+		} catch (Exception e) {
+			model.addAttribute("errorMsg", "회원가입 중 문제가 발생하였습니다.");
+		}
+    	return "redirect:/user/login_form.do";
     }
-
-    PageInfo registUser(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String userid = request.getParameter("userid");
-        String password = request.getParameter("password");
-        String name = request.getParameter("name");
-        String address = request.getParameter("address");
-        String telephone = request.getParameter("telephone");
-        try {
-            userService.registUser(new User(userid, password, name, address, telephone));
-            return new PageInfo(true, "/user/login_form.do");
-        } catch (Exception e) {
-            request.setAttribute("errorMsg", "로그인 실행 중 문제가 발생하였습니다.");
-            throw e;
-        }
-    }
-
-    PageInfo loginForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        return new PageInfo(true, "/user/login.jsp");
-    }
-
-    PageInfo login(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String userid = request.getParameter("userid");
-        String password = request.getParameter("password");
+    
+    @PostMapping("/login.do")
+    private String login(@RequestParam String userid, @RequestParam String password, HttpSession session, Model model) {
         try {
             String name = userService.login(userid, password);
             if (name != null) {
-                HttpSession session = request.getSession();
                 session.setAttribute("userId", userid);
                 session.setAttribute("userName", name);
-                return new PageInfo(false, "/index.jsp");
+                return "redirect:/";
             } else {
-                request.setAttribute("errorMsg", "아이디나 비밀번호가 일치하지 않습니다.");
-                return new PageInfo(true, "/user/login_form.do");
+                model.addAttribute("errorMsg", "아이디나 비밀번호가 일치하지 않습니다.");
+                return "/user/login_form.do";
             }
         } catch (Exception e) {
-            request.setAttribute("errorMsg", "로그인 실행 중 문제가 발생하였습니다.");
-            throw e;
+            model.addAttribute("errorMsg", "로그인 실행 중 문제가 발생하였습니다.");
+            return "/user/login_form.do";
         }
     }
-
-    PageInfo logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        request.getSession().invalidate();
-        return new PageInfo(false, "/index.jsp");
+    
+    @GetMapping("/logout.do")
+    private String logout(HttpSession session) {
+    	session.invalidate();
+    	return "redirect:/";
     }
-
-    PageInfo updateForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String userid = request.getParameter("userid");
-        try {
-            User user = userService.getUser(userid);
-            request.setAttribute("user", user);
-            return new PageInfo(true, "/user/update.jsp");
-        } catch (SQLException e) {
-            request.setAttribute("errorMsg", "부서 상세 조회에 실패하셨습니다.");
-            throw e;
-        }
+    
+    @GetMapping("/update_form.do")
+    private String updateForm(HttpSession session, Model model) throws Exception {
+    	String userid = (String) session.getAttribute("userId");
+    	User user = userService.getUser(userid);
+		model.addAttribute("user", user);
+		return "/user/update";
     }
-
-    PageInfo update(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String userid = request.getParameter("userid");
-        String password = request.getParameter("password");
-        String name = request.getParameter("name");
-        String address = request.getParameter("address");
-        String telephone = request.getParameter("telephone");
-        try {
-            User user = new User(userid, password, name, address, telephone);
-            userService.update(user);
-            return new PageInfo(false, "/index.jsp");
-        } catch (Exception e) {
-            request.setAttribute("errorMsg", "로그인 실행 중 문제가 발생하였습니다.");
-            throw e;
-        }
+    
+    @PostMapping("/update.do")
+    private String update(User user, Model model) {
+    	try {
+			userService.update(user);
+		} catch (Exception e) {
+			model.addAttribute("errorMsg", "회원정보 수정 중 문제가 발생하였습니다.");
+		}
+    	return "redirect:/";
     }
-
-    PageInfo searchForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        return new PageInfo(false, "/user/search.jsp");
+    
+    @GetMapping
+    private String search(@RequestParam String userid, @RequestParam String name, Model model) throws Exception {
+    	String password = userService.getPw(userid, name);
+    	model.addAttribute("password", password);
+    	return "/user/search";
     }
 
     PageInfo search(HttpServletRequest request, HttpServletResponse response) throws Exception {

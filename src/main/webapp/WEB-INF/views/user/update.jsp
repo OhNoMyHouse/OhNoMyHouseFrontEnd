@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="com.ssafy.model.dto.User" %>
+<%@ page import="com.ssafy.happyhouse.model.dto.User" %>
 <html>
 <head>
     <meta charset="utf-8"/>

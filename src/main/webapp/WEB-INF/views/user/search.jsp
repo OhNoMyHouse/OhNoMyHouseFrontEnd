@@ -49,7 +49,7 @@
     <section id="services" class="wow fadeIn">
         <div class="container">
             <header class="section-header wow fadeInUp">
-                <h3>Login</h3>
+                <h3>비밀번호 찾기</h3>
             </header>
             <form method="post" action="${root}/user/search.do">
                 <div class="col">
