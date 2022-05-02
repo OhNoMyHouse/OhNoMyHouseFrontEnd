@@ -15,7 +15,7 @@
         <div id="introCarousel" class="carousel slide carousel-fade" data-ride="carousel">
             <ol class="carousel-indicators"></ol>
             <div class="carousel-inner" role="listbox">
-                <div class="carousel-item active" style="background-image: url('img/intro-carousel/1.jpg')">
+                <div class="carousel-item active" style="background-image: url('static/img/intro-carousel/1.jpg')">
                     <div class="carousel-container">
                         <div class="carousel-content">
                             <h2>나는 집이 없어 행복하지 않아요.</h2>
@@ -24,7 +24,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="carousel-item" style="background-image: url('img/intro-carousel/2.jpg')">
+                <div class="carousel-item" style="background-image: url('static/img/intro-carousel/2.jpg')">
                     <div class="carousel-container">
                         <div class="carousel-content">
                             <h2>서울에서 나의 집을 찾고 싶다고요?</h2>
@@ -34,7 +34,7 @@
                     </div>
                 </div>
 
-                <div class="carousel-item" style="background-image: url('img/intro-carousel/3.jpg')">
+                <div class="carousel-item" style="background-image: url('static/img/intro-carousel/3.jpg')">
                     <div class="carousel-container">
                         <div class="carousel-content">
                             <h2>우리가 당신을 도와드립니다.</h2>
@@ -44,7 +44,7 @@
                     </div>
                 </div>
 
-                <div class="carousel-item" style="background-image: url('img/intro-carousel/4.jpg')">
+                <div class="carousel-item" style="background-image: url('static/img/intro-carousel/4.jpg')">
                     <div class="carousel-container">
                         <div class="carousel-content">
                             <h2>내 집 마련이 고민이라고요?</h2>
@@ -54,7 +54,7 @@
                     </div>
                 </div>
 
-                <div class="carousel-item" style="background-image: url('img/intro-carousel/5.jpg')">
+                <div class="carousel-item" style="background-image: url('static/img/intro-carousel/5.jpg')">
                     <div class="carousel-container">
                         <div class="carousel-content">
                             <h2>내 연봉으로 집을 살 수 있을까 고민이라고요?</h2>
@@ -164,18 +164,18 @@
                 <h3>아파트 조회</h3>
                 <div class="row about-cols">
                     <div class="box flex">
-                        <form name="sigundongForAptInfo" id="sigundongForAptInfo">
-                            <select name="sido" id="sido">
-                                <option value="*">시/도</option>
-                            </select>
-                            <select name="gugun" id="gugun">
-                                <option value="*">구/군</option>
-                            </select>
-                            <select name="dong" id="dong">
-                                <option value="*">동</option>
-                            </select>
-                            <button type="button" onclick="submitSigundongForAptInfo()">조회</button>
-                        </form>
+                        <label class="mr-2" for="sido">시도 : </label>
+                        <select class="form-control" id="sido">
+                            <option value="0">시/도</option>
+                        </select>
+                        <label class="mr-2 ml-3" for="gugun">구군 : </label>
+                        <select class="form-control" id="gugun">
+                            <option value="0">구/군</option>
+                        </select>
+                        <label class="mr-2 ml-3" for="dong">읍면동 : </label>
+                        <select class="form-control" id="dong">
+                            <option value="0">동</option>
+                        </select>
                     </div>
                 </div>
                 <p>원하는 지역의 아파트를 조회할 수 있습니다.</p>
