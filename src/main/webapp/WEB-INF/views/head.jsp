@@ -48,9 +48,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="${root}/js/main.js"></script>
     <script type="text/javascript"
             src="//dapi.kakao.com/v2/maps/sdk.js?appkey=13195c6e1a069f22f4340a26aec44a00&libraries=services"></script>
-    <script type="text/javascript" src="js/map.js"></script>
     <script>
         $(document).ready(function () {
             // 서치
@@ -90,8 +90,6 @@
             $.get(root + "/map/gugun"
                 , {sido: $("#sido").val()}
                 , function (data, status) {
-                    $("#gugun").empty();
-                    $("#gugun").append('<option value="0">선택</option>');
                     $.each(data, function (index, vo) {
                         $("#gugun").append("<option value='" + vo.gugunCode + "'>" + vo.gugunName + "</option>");
                     });
@@ -103,8 +101,6 @@
             $.get(root + "/map/dong"
                 , {gugun: $("#gugun").val()}
                 , function (data, status) {
-                    $("#dong").empty();
-                    $("#dong").append('<option value="0">선택</option>');
                     $.each(data, function (index, vo) {
                         $("#dong").append("<option value='" + vo.dongCode + "'>" + vo.dongName + "</option>");
                     });
@@ -116,18 +112,15 @@
             $.get(root + "/map/apt"
                 , {dong: $("#dong").val()}
                 , function (data, status) {
-                    $("tbody").empty();
+                    $("#aptInfoByDongCode").empty();
+                    let list = ``;
                     $.each(data, function (index, vo) {
-                        let str = `
-    										<tr class="${colorArr[index%3]}">
-    										<td>${vo.aptCode}</td>
-    										<td>${vo.aptName}</td>
-    										<td>${vo.sidoName} ${vo.gugunName} ${vo.dongName} ${vo.jibun}</td>
-    										<td>${vo.buildYear}</td>
-    										<td>${vo.recentPrice}</td>
-    									`;
-                        $("tbody").append(str);
+                        list += '<p style="border-bottom: solid gray 1px; font-size: 10px; margin-top: -15px;">' +
+                            vo.aptName + '<br>' +
+                            '동 :' + vo.dongName +'<br>' +
+                            '가격: ' + vo.recentPrice + '</p>';
                     });
+                    $("#aptInfoByDongCode").append(list);
                     displayMarkers(data);
                 }
                 , "json"

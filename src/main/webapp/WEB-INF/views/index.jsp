@@ -162,19 +162,16 @@
         <div class="container">
             <header class="section-header">
                 <h3>아파트 조회</h3>
-                <div class="row about-cols">
+                <div class="row about-cols flex">
                     <div class="box flex">
-                        <label class="mr-2" for="sido">시도 : </label>
                         <select class="form-control" id="sido">
-                            <option value="0">시/도</option>
+                            <option value="*">시/도</option>
                         </select>
-                        <label class="mr-2 ml-3" for="gugun">구군 : </label>
                         <select class="form-control" id="gugun">
-                            <option value="0">구/군</option>
+                            <option value="*">구/군</option>
                         </select>
-                        <label class="mr-2 ml-3" for="dong">읍면동 : </label>
                         <select class="form-control" id="dong">
-                            <option value="0">동</option>
+                            <option value="*">동</option>
                         </select>
                     </div>
                 </div>
@@ -182,14 +179,12 @@
             </header>
 
             <div class="row about-cols">
-                <!-- Map Position -->
                 <div>
-                    <!-- 실거래 정보 출력 -->
                     <h5>거래 정보</h5>
-                    <div style="overflow:auto;width:200px; height: 450px" id="aptInfoByDongCode">
+                    <div style="overflow:auto; width:200px; height: 450px" id="aptInfoByDongCode">
                     </div>
                 </div>
-                <div id="map1" style="width: 380px; height: 450px"></div>
+                <div id="map1" style="width: 380px; height: 450px;"></div>
             </div>
         </div>
     </section>
