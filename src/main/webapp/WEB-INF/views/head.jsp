@@ -91,7 +91,6 @@
                         , "json"
                     );
                 }
-                return false;
             });
         });
 

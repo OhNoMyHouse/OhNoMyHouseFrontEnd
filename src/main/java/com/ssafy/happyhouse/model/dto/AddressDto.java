@@ -1,6 +1,6 @@
 package com.ssafy.happyhouse.model.dto;
 
-public class Address {
+public class AddressDto {
 	String sidoName;
 	String gugunName;
 	String dongName;
@@ -8,8 +8,8 @@ public class Address {
 	String latitude;
 	String longtitude;
 	
-	public Address(String sidoName, String gugunName, String dongName, String dongCode, String latitude,
-			String longtitude) {
+	public AddressDto(String sidoName, String gugunName, String dongName, String dongCode, String latitude,
+					  String longtitude) {
 		super();
 		this.sidoName = sidoName;
 		this.gugunName = gugunName;

@@ -178,9 +178,7 @@
                 <p>원하는 지역의 아파트를 조회할 수 있습니다.</p>
                 <div class="row about-cols">
                     <div class="box flex">
-                        <form name="aptNameForAptDeal" id="aptNameForAptDeal">
-                            <input type="text" id="word"/>
-                        </form>
+                        <input type="text" id="word"/>
                     </div>
                 </div>
                 <p>원하는 아파트 이름으로 실거래가를 조회할 수 있습니다.</p>

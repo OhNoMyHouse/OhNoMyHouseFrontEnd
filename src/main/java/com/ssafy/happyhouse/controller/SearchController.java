@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ssafy.happyhouse.model.dto.DataInfo;
-import com.ssafy.happyhouse.model.service.AddressService;
+import com.ssafy.happyhouse.model.service.AddressServiceImpl;
 import com.ssafy.happyhouse.model.service.AptInfoService;
 import com.ssafy.happyhouse.model.service.AptdealService;
 import com.ssafy.happyhouse.model.service.SsgiService;
@@ -16,14 +16,14 @@ import com.ssafy.happyhouse.model.service.SsgiService;
 @RequestMapping("/search")
 @Controller
 public class SearchController {
-	AddressService addressService;
+	AddressServiceImpl addressServiceImpl;
 	AptInfoService aptInfoService;
 	AptdealService aptdealService;
 	SsgiService ssgiService;
 	
 	@Autowired
-	public void setAddressService(AddressService addressService) {
-		this.addressService = addressService;
+	public void setAddressService(AddressServiceImpl addressServiceImpl) {
+		this.addressServiceImpl = addressServiceImpl;
 	}
 
 	@Autowired
@@ -63,7 +63,7 @@ public class SearchController {
 			String sido = request.getParameter("sido");
 			String gugun = request.getParameter("gugun");
 			String dong = request.getParameter("dong");
-			Long dongCode = Long.parseLong(addressService.getDongCode(sido,gugun,dong));
+			Long dongCode = Long.parseLong(addressServiceImpl.getDongCode(sido,gugun,dong));
 			return new DataInfo("application/json;charset=utf-8", ssgiService.getSsigListByDongCode(dongCode));
 			
 		} catch (Exception e) {
@@ -78,7 +78,7 @@ public class SearchController {
 			String gugun = request.getParameter("gugun");
 			String dong = request.getParameter("dong");
 
-			String dongCode = addressService.getDongCode(sido,gugun,dong);
+			String dongCode = addressServiceImpl.getDongCode(sido,gugun,dong);
 			return new DataInfo("application/json;charset=utf-8", aptdealService.getAptDealByDongCode(dongCode));
 		
 		} catch (Exception e) {
@@ -103,7 +103,7 @@ public class SearchController {
 			String gugun = request.getParameter("gugun");
 			String dong = request.getParameter("dong");
 			
-			String dongCode = addressService.getDongCode(sido,gugun,dong);
+			String dongCode = addressServiceImpl.getDongCode(sido,gugun,dong);
 			System.out.println(dongCode);
 			return new DataInfo("application/json;charset=utf-8", aptInfoService.getAptInfoByDongCode(dongCode));
 		} catch (Exception e) {

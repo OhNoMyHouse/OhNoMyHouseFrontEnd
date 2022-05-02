@@ -1,36 +1,18 @@
 package com.ssafy.happyhouse.model.service;
 
+import com.ssafy.happyhouse.model.dto.AddressDto;
+
 import java.sql.SQLException;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+public interface AddressService {
 
-import com.ssafy.happyhouse.model.dao.AddressDAO;
-import com.ssafy.happyhouse.model.dto.Region;
+    List<AddressDto> getSidoName() throws SQLException;
 
-@Service
-public class AddressService {
-	AddressDAO addressDAO;
+    List<AddressDto> getGugunName(String sidoName) throws SQLException;
 
-	@Autowired
-	public void setAddressDAO(AddressDAO addressDAO) {
-		this.addressDAO = addressDAO;
-	}
+    List<AddressDto> getDongName(String sidoName, String gugunName) throws SQLException;
 
-	public List<Region> getSidoName() throws SQLException {
-		return addressDAO.selectSido();
-	}
+    String getDongCode(String sidoName, String gugunName, String dongName) throws SQLException;
 
-	public List<Region> getGugunName(String sidoName) throws SQLException {
-		return addressDAO.selectGugun(sidoName);
-	}
-
-	public List<Region> getDongName(String sidoName, String gugunName) throws SQLException {
-		return addressDAO.selectdong(sidoName, gugunName);
-	}
-	
-	public String getDongCode(String sidoName, String gugunName,String dongName) throws SQLException {
-		return addressDAO.selectDongCode(sidoName,gugunName,dongName);
-	}
 }

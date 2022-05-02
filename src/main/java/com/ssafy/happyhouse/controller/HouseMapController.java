@@ -1,7 +1,7 @@
 package com.ssafy.happyhouse.controller;
 
-import com.ssafy.happyhouse.model.HouseInfoDto;
-import com.ssafy.happyhouse.model.SidoGugunCodeDto;
+import com.ssafy.happyhouse.model.dto.HouseInfoDto;
+import com.ssafy.happyhouse.model.dto.SidoGugunCodeDto;
 import com.ssafy.happyhouse.model.service.HouseMapService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
