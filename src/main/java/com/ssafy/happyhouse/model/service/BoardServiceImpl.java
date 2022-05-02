@@ -10,12 +10,9 @@ import com.ssafy.happyhouse.model.dto.Board;
 
 @Service
 public class BoardServiceImpl implements BoardService {
-	BoardMapper boardMapper;
 
 	@Autowired
-	public void setBoardDAO(BoardMapper boardMapper) {
-		this.boardMapper = boardMapper;
-	}
+	BoardMapper boardMapper;
 
 	@Override
 	public boolean makePoll(Board board) {
