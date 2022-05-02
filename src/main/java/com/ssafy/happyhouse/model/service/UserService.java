@@ -1,38 +1,19 @@
 package com.ssafy.happyhouse.model.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import java.util.Map;
 
-import com.ssafy.happyhouse.model.dao.UserDAO;
 import com.ssafy.happyhouse.model.dto.User;
 
-@Service
-public class UserService {
+public interface UserService {
 
-    UserDAO userDAO;
+	boolean registUser(User user) throws Exception;
 
-    @Autowired
-    public void setUserDAO(UserDAO userDAO) {
-		this.userDAO = userDAO;
-	}
+	String login(Map<String, String> map) throws Exception;
 
-	public boolean registUser(User user) throws Exception {
-        return userDAO.registUser(user);
-    }
+	User getUser(String userid) throws Exception;
 
-    public String login(String id, String pass) throws Exception {
-        return userDAO.login(id, pass);
-    }
+	boolean update(User user) throws Exception;
 
-    public User getUser(String userid) throws Exception {
-        return userDAO.getUser(userid);
-    }
+	String getPw(String id, String name) throws Exception;
 
-    public boolean update(User user) throws Exception {
-        return userDAO.update(user);
-    }
-
-    public String getPw(String id, String name) throws Exception {
-        return userDAO.getPw(id, name);
-    }
 }

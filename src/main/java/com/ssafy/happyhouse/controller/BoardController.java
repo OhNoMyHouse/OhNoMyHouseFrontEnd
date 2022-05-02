@@ -8,14 +8,17 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ssafy.happyhouse.model.dto.Board;
 import com.ssafy.happyhouse.model.dto.PageInfo;
 import com.ssafy.happyhouse.model.service.BoardService;
 
-@RequestMapping("/board")
+//@RequestMapping("/board")
 @Controller
 public class BoardController {
     BoardService boardService;
@@ -25,31 +28,24 @@ public class BoardController {
 		this.boardService = boardService;
 	}
 
-//	@Override
-//    public PageInfo process(HttpServletRequest request, HttpServletResponse response) throws Exception {
-//        String subUrl = request.getServletPath().substring(6);
-//        if (subUrl.equals("/makepoll_form.do")) {
-//            return makePollForm(request, response);
-//        } else if (subUrl.equals("/makepoll.do")) {
-//            return makePoll(request, response);
-//        } else if (subUrl.equals("/update_form.do")) {
-//            return updateForm(request, response);
-//        } else if (subUrl.equals("/update.do")) {
-//            return update(request, response);
-//        } else if (subUrl.equals("/delete.do")) {
-//            return delete(request, response);
-//        }
-//        return null;
+    
+//    @GetMapping("/")
+//    private String makelist(Model model) throws Exception {
+//    	List<Board> list = boardService.getBoardList();
+//    	model.addAttribute("boardList", list);
+//    	return "/index";
 //    }
-
-    @GetMapping("/makepoll.do")
-    private String makePollForm() {
-    	return "redirect:/board/makepoll";
+    
+//    @PostMapping("/makepoll.do")
+    @PostMapping("/board/makepoll.do")
+    private String makePoll(@RequestParam String title, @RequestParam String content, Model model) throws Exception {
+    	Board board = new Board();
+    	board.setTitle(title);
+    	board.setContent(content);
+    	boardService.makePoll(board);
+    	return "redirect:/";
     }
-//    PageInfo makePollForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
-//        return new PageInfo(false, "/board/makepoll.jsp");
-//    }
-
+    
     PageInfo makePoll(HttpServletRequest request, HttpServletResponse response) throws Exception {
         int idx = Integer.parseInt(request.getParameter("idx"));
         String title = request.getParameter("title");

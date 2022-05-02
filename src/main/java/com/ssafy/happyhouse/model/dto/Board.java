@@ -43,4 +43,8 @@ public class Board {
 				", content='" + content + '\'' +
 				'}';
 	}
+
+	public Board() {
+		super();
+	}
 }

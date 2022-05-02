@@ -2,36 +2,18 @@ package com.ssafy.happyhouse.model.service;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
-
-import com.ssafy.happyhouse.model.dao.BoardDAO;
 import com.ssafy.happyhouse.model.dto.Board;
 
-@Service
-public class BoardService {
-	BoardDAO boardDAO;
+public interface BoardService {
 
-	public void setBoardDAO(BoardDAO boardDAO) {
-		this.boardDAO = boardDAO;
-	}
+	boolean makePoll(Board board) throws Exception;
 
-	public boolean makePoll(Board board) throws Exception {
-		return boardDAO.makePoll(board);
-	}
+	List<Board> getBoardList() throws Exception;
 
-	public List<Board> getBoardList() throws Exception {
-		return boardDAO.getBoardList();
-	}
+	Board getBoard(int idx) throws Exception;
 
-	public Board getBoard(int idx) throws Exception {
-		return boardDAO.getBoard(idx);
-	}
+	boolean update(Board board) throws Exception;
 
-	public boolean update(Board board) throws Exception {
-		return boardDAO.update(board);
-	}
+	boolean delete(int idx) throws Exception;
 
-	public boolean delete(int idx) throws Exception {
-		return boardDAO.delete(idx);
-	}
 }

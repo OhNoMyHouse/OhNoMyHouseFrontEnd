@@ -1,5 +1,7 @@
 package com.ssafy.happyhouse.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -30,18 +32,19 @@ public class UserController {
     private String registUser(User user, Model model) {
     	try {
 			userService.registUser(user);
+	    	return "redirect:/user/login_form.do";
 		} catch (Exception e) {
 			model.addAttribute("errorMsg", "회원가입 중 문제가 발생하였습니다.");
+	    	return "/user/regist_form.do";
 		}
-    	return "redirect:/user/login_form.do";
     }
     
     @PostMapping("/login.do")
-    private String login(@RequestParam String userid, @RequestParam String password, HttpSession session, Model model) {
+    private String login(@RequestParam Map<String,String> map, HttpSession session, Model model) {
         try {
-            String name = userService.login(userid, password);
+            String name = userService.login(map);
             if (name != null) {
-                session.setAttribute("userId", userid);
+                session.setAttribute("userId", map.get("userid"));
                 session.setAttribute("userName", name);
                 return "redirect:/";
             } else {
@@ -49,6 +52,7 @@ public class UserController {
                 return "/user/login_form.do";
             }
         } catch (Exception e) {
+        	e.printStackTrace();
             model.addAttribute("errorMsg", "로그인 실행 중 문제가 발생하였습니다.");
             return "/user/login_form.do";
         }
@@ -72,10 +76,11 @@ public class UserController {
     private String update(User user, Model model) {
     	try {
 			userService.update(user);
+	    	return "redirect:/";
 		} catch (Exception e) {
 			model.addAttribute("errorMsg", "회원정보 수정 중 문제가 발생하였습니다.");
+	    	return "/user/update_form.do";
 		}
-    	return "redirect:/";
     }
     
     @GetMapping
