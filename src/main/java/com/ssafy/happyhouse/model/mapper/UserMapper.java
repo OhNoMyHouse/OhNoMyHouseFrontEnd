@@ -1,4 +1,4 @@
-package com.ssafy.happyhouse.model.dao;
+package com.ssafy.happyhouse.model.mapper;
 
 import java.util.Map;
 
@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.ssafy.happyhouse.model.dto.User;
 
 @Mapper
-public interface UserDAO {
+public interface UserMapper {
 
 	boolean registUser(User user);
 
@@ -18,6 +18,5 @@ public interface UserDAO {
 	boolean update(User user);
 
 	String getPw(String id, String name);
-
 
 }

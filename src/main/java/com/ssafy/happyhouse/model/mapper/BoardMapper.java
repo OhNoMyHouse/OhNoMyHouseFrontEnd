@@ -1,4 +1,4 @@
-package com.ssafy.happyhouse.model.dao;
+package com.ssafy.happyhouse.model.mapper;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.ssafy.happyhouse.model.dto.Board;
 
 @Mapper
-public interface BoardDAO {
+public interface BoardMapper {
 
 	boolean makePoll(Board board);
 

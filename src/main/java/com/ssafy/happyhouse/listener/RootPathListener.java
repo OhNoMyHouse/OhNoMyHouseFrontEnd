@@ -8,13 +8,15 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class RootPathListener implements ServletContextListener {
-	
-    public void contextDestroyed(ServletContextEvent sce)  { 
+
+    public void contextDestroyed(ServletContextEvent sce) {
+
     }
-    public void contextInitialized(ServletContextEvent sce)  {
-    	log.info("root set...");
-    	ServletContext ctx = sce.getServletContext();
-    	ctx.setAttribute("root", ctx.getContextPath());
+
+    public void contextInitialized(ServletContextEvent sce) {
+        log.info("root set...");
+        ServletContext ctx = sce.getServletContext();
+        ctx.setAttribute("root", ctx.getContextPath());
     }
-	
+
 }

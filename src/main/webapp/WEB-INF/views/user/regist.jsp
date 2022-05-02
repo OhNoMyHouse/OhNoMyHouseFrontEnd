@@ -50,13 +50,13 @@
             <header class="section-header wow fadeInUp">
                 <h3>회원 가입</h3>
             </header>
-            <form method="post" action="${pageContext.request.contextPath}/user/regist.do">
+            <form method="post" action="${root}/user/regist.do">
                 <div class="col">
                     <div class="col-lg-4 col-md-6 box wow bounceInUp" data-wow-duration="1.4s" style="margin: auto">
                         <div class="icon"><i class="ion-ios-information"></i></div>
                         <h4 class="title">아이디</h4>
                         <p class="description">
-                            <input type="text" name="userid" placeholder="ID" required/>
+                            <input type="text" name="userid" placeholder="ID"/>
                         </p>
                     </div>
                     <br/>
@@ -65,7 +65,7 @@
                         <div class="icon"><i class="ion-ios-locked"></i></div>
                         <h4 class="title">비밀번호</h4>
                         <p class="description">
-                            <input type="password" name="password" placeholder="영문 숫자 포함 6자리 이상" required/>
+                            <input type="password" name="password" placeholder="영문 숫자 포함 6자리 이상"/>
                         </p>
                     </div>
                     <br/>
@@ -74,7 +74,7 @@
                         <div class="icon"><i class="ion-ios-person"></i></div>
                         <h4 class="title">이름</h4>
                         <p class="description">
-                            <input type="text" name="name" placeholder="User Name" required/>
+                            <input type="text" name="name" placeholder="User Name"/>
                         </p>
                     </div>
                     <br/>

@@ -5,40 +5,40 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ssafy.happyhouse.model.dao.BoardDAO;
+import com.ssafy.happyhouse.model.mapper.BoardMapper;
 import com.ssafy.happyhouse.model.dto.Board;
 
 @Service
 public class BoardServiceImpl implements BoardService {
-	BoardDAO boardDAO;
+	BoardMapper boardMapper;
 
 	@Autowired
-	public void setBoardDAO(BoardDAO boardDAO) {
-		this.boardDAO = boardDAO;
+	public void setBoardDAO(BoardMapper boardMapper) {
+		this.boardMapper = boardMapper;
 	}
 
 	@Override
 	public boolean makePoll(Board board) {
-		return boardDAO.makePoll(board);
+		return boardMapper.makePoll(board);
 	}
 
 	@Override
 	public List<Board> getBoardList() {
-		return boardDAO.getBoardList();
+		return boardMapper.getBoardList();
 	}
 
 	@Override
 	public Board getBoard(int idx) {
-		return boardDAO.getBoard(idx);
+		return boardMapper.getBoard(idx);
 	}
 
 	@Override
 	public boolean update(Board board) {
-		return boardDAO.update(board);
+		return boardMapper.update(board);
 	}
 
 	@Override
 	public boolean delete(int idx) {
-		return boardDAO.delete(idx);
+		return boardMapper.delete(idx);
 	}
 }
