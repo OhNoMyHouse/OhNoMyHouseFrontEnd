@@ -70,7 +70,7 @@
                         <div class="icon"><i class="ion-ios-locked"></i></div>
                         <h4 class="title">비밀번호</h4>
                         <p class="description">
-                            <input type="text" name="password" value="${user.password}"/>
+                            <input type="text" name="password" value="${user.password}" required/>
                         </p>
                     </div>
                     <br/>
@@ -81,7 +81,7 @@
                         <div class="icon"><i class="ion-ios-person"></i></div>
                         <h4 class="title">이름</h4>
                         <p class="description">
-                            <input type="text" name="name" value="${user.name}"/>
+                            <input type="text" name="name" value="${user.name}" required/>
                         </p>
                     </div>
                     <br/>

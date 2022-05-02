@@ -18,27 +18,27 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public boolean makePoll(Board board) throws Exception {
+	public boolean makePoll(Board board) {
 		return boardDAO.makePoll(board);
 	}
 
 	@Override
-	public List<Board> getBoardList() throws Exception {
+	public List<Board> getBoardList() {
 		return boardDAO.getBoardList();
 	}
 
 	@Override
-	public Board getBoard(int idx) throws Exception {
+	public Board getBoard(int idx) {
 		return boardDAO.getBoard(idx);
 	}
 
 	@Override
-	public boolean update(Board board) throws Exception {
+	public boolean update(Board board) {
 		return boardDAO.update(board);
 	}
 
 	@Override
-	public boolean delete(int idx) throws Exception {
+	public boolean delete(int idx) {
 		return boardDAO.delete(idx);
 	}
 }

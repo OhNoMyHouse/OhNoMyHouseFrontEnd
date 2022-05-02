@@ -6,14 +6,14 @@ import com.ssafy.happyhouse.model.dto.Board;
 
 public interface BoardService {
 
-	boolean makePoll(Board board) throws Exception;
+	boolean makePoll(Board board);
 
-	List<Board> getBoardList() throws Exception;
+	List<Board> getBoardList();
 
-	Board getBoard(int idx) throws Exception;
+	Board getBoard(int idx);
 
-	boolean update(Board board) throws Exception;
+	boolean update(Board board);
 
-	boolean delete(int idx) throws Exception;
+	boolean delete(int idx);
 
 }

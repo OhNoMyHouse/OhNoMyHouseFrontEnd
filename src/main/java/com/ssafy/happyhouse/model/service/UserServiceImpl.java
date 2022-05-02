@@ -19,27 +19,27 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean registUser(User user) throws Exception {
+	public boolean registUser(User user) {
         return userDAO.registUser(user);
     }
 
     @Override
-	public String login(Map<String, String> map) throws Exception {
+	public String login(Map<String, String> map) {
         return userDAO.login(map);
     }
 
     @Override
-	public User getUser(String userid) throws Exception {
+	public User getUser(String userid) {
         return userDAO.getUser(userid);
     }
 
     @Override
-	public boolean update(User user) throws Exception {
+	public boolean update(User user) {
         return userDAO.update(user);
     }
 
     @Override
-	public String getPw(String id, String name) throws Exception {
+	public String getPw(String id, String name) {
         return userDAO.getPw(id, name);
     }
 }

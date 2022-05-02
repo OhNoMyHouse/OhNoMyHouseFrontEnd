@@ -6,14 +6,14 @@ import com.ssafy.happyhouse.model.dto.User;
 
 public interface UserService {
 
-	boolean registUser(User user) throws Exception;
+	boolean registUser(User user);
 
-	String login(Map<String, String> map) throws Exception;
+	String login(Map<String, String> map);
 
-	User getUser(String userid) throws Exception;
+	User getUser(String userid);
 
-	boolean update(User user) throws Exception;
+	boolean update(User user);
 
-	String getPw(String id, String name) throws Exception;
+	String getPw(String id, String name);
 
 }

@@ -56,7 +56,7 @@
                         <div class="icon"><i class="ion-ios-information"></i></div>
                         <h4 class="title">아이디</h4>
                         <p class="description">
-                            <input type="text" name="userid" placeholder="ID"/>
+                            <input type="text" name="userid" placeholder="ID" required/>
                         </p>
                     </div>
                     <br/>
@@ -65,7 +65,7 @@
                         <div class="icon"><i class="ion-ios-locked"></i></div>
                         <h4 class="title">비밀번호</h4>
                         <p class="description">
-                            <input type="password" name="password" placeholder="영문 숫자 포함 6자리 이상"/>
+                            <input type="password" name="password" placeholder="영문 숫자 포함 6자리 이상" required/>
                         </p>
                     </div>
                     <br/>
@@ -74,7 +74,7 @@
                         <div class="icon"><i class="ion-ios-person"></i></div>
                         <h4 class="title">이름</h4>
                         <p class="description">
-                            <input type="text" name="name" placeholder="User Name"/>
+                            <input type="text" name="name" placeholder="User Name" required/>
                         </p>
                     </div>
                     <br/>

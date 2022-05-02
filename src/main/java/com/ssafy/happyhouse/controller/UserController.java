@@ -65,7 +65,7 @@ public class UserController {
     }
     
     @GetMapping("/update_form.do")
-    private String updateForm(HttpSession session, Model model) throws Exception {
+    private String updateForm(HttpSession session, Model model) {
     	String userid = (String) session.getAttribute("userId");
     	User user = userService.getUser(userid);
 		model.addAttribute("user", user);
@@ -84,13 +84,13 @@ public class UserController {
     }
     
     @GetMapping
-    private String search(@RequestParam String userid, @RequestParam String name, Model model) throws Exception {
+    private String search(@RequestParam String userid, @RequestParam String name, Model model) {
     	String password = userService.getPw(userid, name);
     	model.addAttribute("password", password);
     	return "/user/search";
     }
 
-    PageInfo search(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    PageInfo search(HttpServletRequest request, HttpServletResponse response) {
         String userid = request.getParameter("userid");
         String name = request.getParameter("name");
         try {
