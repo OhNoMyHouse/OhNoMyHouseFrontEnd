@@ -5,7 +5,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-//@MapperScan(basePackages = {"com.ssafy.happyhouse.model.dao"}, annotationClass = Mapper.class)
+// @MapperScan(basePackages = {"com.ssafy.happyhouse.model.dao"}, annotationClass = Mapper.class)
 @SpringBootApplication
 public class Happyhouse5Application {
 

@@ -67,6 +67,32 @@
                     info[i].parentElement.parentElement.remove();
                 });
             }
+
+            // 아파트 조회 검색
+            // $(document).on("click", "#submitAptNameForAptDeal", function () {
+            $('#word').keydown(function (e) {
+                if (e.keyCode == 13) {
+                    $.get(root + "/map/search"
+                        , {word: $("#word").val()}
+                        , function (data, status) {
+                            $("#aptInfoByDongCode").empty();
+                            let list = ``;
+                            console.log(data);
+                            $.each(data, function (index, vo) {
+                                list += '<p style="border-bottom: solid gray 1px; font-size: 10px;">' +
+                                    vo.aptName + '<br>' +
+                                    '동: ' + vo.dongName + '<br>' +
+                                    '가격: ' + vo.recentPrice + '</p>';
+                            });
+                            $("#aptInfoByDongCode").append(list);
+                            displayMarkers(data);
+                            $('#word').val(null);
+                        }
+                        , "json"
+                    );
+                }
+                return false;
+            });
         });
 
         function search() {
@@ -90,6 +116,8 @@
             $.get(root + "/map/gugun"
                 , {sido: $("#sido").val()}
                 , function (data, status) {
+                    $("#gugun").empty();
+                    $("#gugun").append('<option value="0">구/군</option>');
                     $.each(data, function (index, vo) {
                         $("#gugun").append("<option value='" + vo.gugunCode + "'>" + vo.gugunName + "</option>");
                     });
@@ -101,6 +129,8 @@
             $.get(root + "/map/dong"
                 , {gugun: $("#gugun").val()}
                 , function (data, status) {
+                    $("#dong").empty();
+                    $("#dong").append('<option value="0">동</option>');
                     $.each(data, function (index, vo) {
                         $("#dong").append("<option value='" + vo.dongCode + "'>" + vo.dongName + "</option>");
                     });
@@ -115,9 +145,9 @@
                     $("#aptInfoByDongCode").empty();
                     let list = ``;
                     $.each(data, function (index, vo) {
-                        list += '<p style="border-bottom: solid gray 1px; font-size: 10px; margin-top: -15px;">' +
+                        list += '<p style="border-bottom: solid gray 1px; font-size: 10px;">' +
                             vo.aptName + '<br>' +
-                            '동 :' + vo.dongName +'<br>' +
+                            '동: ' + vo.dongName + '<br>' +
                             '가격: ' + vo.recentPrice + '</p>';
                     });
                     $("#aptInfoByDongCode").append(list);
@@ -127,6 +157,7 @@
             );
         });
     </script>
+
     <%--
     <script type="text/javascript">
         $(function () {
@@ -393,38 +424,7 @@
         }
     </script>
 
-    <script type="text/javascript">
-        function submitAptNameForAptDeal() {
-            let AptName = $('#AptName').val();
 
-            $.ajax({
-                url: 'search/DealWithAptName.do',
-                type: 'post',
-                data: {
-                    aptName: AptName,
-                },
-                dataType: 'json',
-                success: function (response) {
-                    console.log(response);
-                    $("#aptDealByAptName").empty();
-                    let list = ``;
-                    $.each(response, function (i, v) {
-                        list += '<p style="border-bottom: solid gray 1px; font-size: 10px; margin-top: -15px;">' +
-                            '<br>' + v.aptName + '<br>' +
-                            '동 :' + v.dongName + '<br>' +
-                            '층 :' + v.floor + '<br>' +
-                            '거래 날짜 :' + v.dealYear + '/' + v.dealMonth + '/' + v.dealDay + '<br>' +
-                            '면적 :' + v.area + '<br>' +
-                            '가격: ' + v.dealAmount + '<br></p>';
-                    });
-                    $("#aptDealByAptName").append(list);
-                },
-                error: function (err) {
-                    console.log(err);
-                },
-            });
-        }
-    </script>
 
     <script type="text/javascript">
         $(function () {

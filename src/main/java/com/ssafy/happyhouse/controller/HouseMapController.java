@@ -43,4 +43,8 @@ public class HouseMapController {
         return new ResponseEntity<List<HouseInfoDto>>(haHouseMapService.getAptInDong(dong), HttpStatus.OK);
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<List<HouseInfoDto>> search(@RequestParam("word") String word) throws Exception {
+        return new ResponseEntity<List<HouseInfoDto>>(haHouseMapService.getSearchList(word), HttpStatus.OK);
+    }
 }
