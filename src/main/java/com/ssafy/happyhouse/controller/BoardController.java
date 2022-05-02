@@ -29,12 +29,12 @@ public class BoardController {
 	}
 
     
-//    @GetMapping("/")
-//    private String makelist(Model model) throws Exception {
-//    	List<Board> list = boardService.getBoardList();
-//    	model.addAttribute("boardList", list);
-//    	return "/index";
-//    }
+    @GetMapping("/")
+    private String makelist(Model model) throws Exception {
+    	List<Board> list = boardService.getBoardList();
+    	model.addAttribute("boardList", list);
+    	return "/index";
+    }
     
 //    @PostMapping("/makepoll.do")
     @PostMapping("/board/makepoll.do")
