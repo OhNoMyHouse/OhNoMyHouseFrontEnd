@@ -15,7 +15,7 @@
         <div id="introCarousel" class="carousel slide carousel-fade" data-ride="carousel">
             <ol class="carousel-indicators"></ol>
             <div class="carousel-inner" role="listbox">
-                <div class="carousel-item active" style="background-image: url('static/img/intro-carousel/1.jpg')">
+                <div class="carousel-item active" style="background-image: url('/img/intro-carousel/1.jpg')">
                     <div class="carousel-container">
                         <div class="carousel-content">
                             <h2>나는 집이 없어 행복하지 않아요.</h2>
@@ -24,7 +24,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="carousel-item" style="background-image: url('static/img/intro-carousel/2.jpg')">
+                <div class="carousel-item" style="background-image: url('/img/intro-carousel/2.jpg')">
                     <div class="carousel-container">
                         <div class="carousel-content">
                             <h2>서울에서 나의 집을 찾고 싶다고요?</h2>
@@ -34,7 +34,7 @@
                     </div>
                 </div>
 
-                <div class="carousel-item" style="background-image: url('static/img/intro-carousel/3.jpg')">
+                <div class="carousel-item" style="background-image: url('/img/intro-carousel/3.jpg')">
                     <div class="carousel-container">
                         <div class="carousel-content">
                             <h2>우리가 당신을 도와드립니다.</h2>
@@ -44,7 +44,7 @@
                     </div>
                 </div>
 
-                <div class="carousel-item" style="background-image: url('static/img/intro-carousel/4.jpg')">
+                <div class="carousel-item" style="background-image: url('/img/intro-carousel/4.jpg')">
                     <div class="carousel-container">
                         <div class="carousel-content">
                             <h2>내 집 마련이 고민이라고요?</h2>
@@ -54,7 +54,7 @@
                     </div>
                 </div>
 
-                <div class="carousel-item" style="background-image: url('static/img/intro-carousel/5.jpg')">
+                <div class="carousel-item" style="background-image: url('/img/intro-carousel/5.jpg')">
                     <div class="carousel-container">
                         <div class="carousel-content">
                             <h2>내 연봉으로 집을 살 수 있을까 고민이라고요?</h2>
