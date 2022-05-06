@@ -1,5 +1,6 @@
 package com.ssafy.happyhouse.controller;
 
+import com.ssafy.Algorithm.Parsing;
 import com.ssafy.happyhouse.model.dto.HouseInfoDto;
 import com.ssafy.happyhouse.model.dto.SidoGugunCodeDto;
 import com.ssafy.happyhouse.model.service.HouseMapService;
@@ -40,7 +41,10 @@ public class HouseMapController {
 
     @GetMapping("/apt")
     public ResponseEntity<List<HouseInfoDto>> apt(@RequestParam("dong") String dong) throws Exception {
-        return new ResponseEntity<List<HouseInfoDto>>(haHouseMapService.getAptInDong(dong), HttpStatus.OK);
+        ResponseEntity<List<HouseInfoDto>> RLH = new ResponseEntity<List<HouseInfoDto>>(haHouseMapService.getAptInDong(dong), HttpStatus.OK);
+        Parsing p = new Parsing();
+        p.getTime(RLH);
+        return RLH;
     }
 
     @GetMapping("/search")
