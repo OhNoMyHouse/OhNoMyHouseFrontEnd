@@ -9,12 +9,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import com.ssafy.Algorithm.AES256;
 import com.ssafy.happyhouse.model.dto.User;
 import com.ssafy.happyhouse.model.service.UserService;
 
 @RequestMapping("/user")
 @Controller
 public class UserController {
+	AES256 aes256 = new AES256();
     UserService userService;
 
     @Autowired
@@ -25,6 +27,8 @@ public class UserController {
     @PostMapping("/regist.do")
     private String registUser(User user, Model model) {
         try {
+        	String cipherText = aes256.encrypt(user.getPassword());
+        	user.setPassword(cipherText);
             userService.registUser(user);
             return "redirect:/user/login_form.do";
         } catch (Exception e) {
@@ -36,6 +40,8 @@ public class UserController {
     @PostMapping("/login.do")
     private String login(@RequestParam Map<String, String> map, HttpSession session, Model model) {
         try {
+        	String text = aes256.encrypt(map.get("password"));
+        	map.put("password", text);
             String name = userService.login(map);
             if (name != null) {
                 session.setAttribute("userId", map.get("userid"));
@@ -59,9 +65,10 @@ public class UserController {
     }
 
     @GetMapping("/update_form.do")
-    private String updateForm(HttpSession session, Model model) {
+    private String updateForm(HttpSession session, Model model) throws Exception {
         String userid = (String) session.getAttribute("userId");
         User user = userService.getUser(userid);
+        user.setPassword(aes256.decrypt(user.getPassword()));
         model.addAttribute("user", user);
         return "/user/update";
     }
@@ -69,6 +76,7 @@ public class UserController {
     @PostMapping("/update.do")
     private String update(User user, Model model) {
         try {
+        	user.setPassword(aes256.encrypt(user.getPassword()));
             userService.update(user);
             return "redirect:/";
         } catch (Exception e) {
