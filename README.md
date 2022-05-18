@@ -1,5 +1,7 @@
 # 🎽 SSAFY 일곱 번째 관통 PJT 🎽
 
+# Front-End & Back-End
+
 # OhNoMyHouse
 
 ### 집이 없는 당신을 위한 Solution
@@ -51,8 +53,8 @@
 
 ### Usecase Diagram
 
-<img src="./src/main/resources/static/readme/UML/MainUML.png" width="60%" height="auto"></img>
-<img src="./src/main/resources/static/readme/UML/DefualtUML.png" width="60%" height="auto"></img>
+<img src="./readme_img/MainUML.png" width="60%" height="auto"></img>
+<img src="./readme_img/DefualtUML.png" width="60%" height="auto"></img>
 
 ---
 
@@ -69,36 +71,40 @@
 <img src="./readme_img/1.png" width="60%" height="auto"></img>
 
 - Vue.js가 적용된 메인페이지
+- Q&A를 누르면 Q&A List를 볼 수 있는 페이지로 이동한다.
 
 ---
 
-#### No.02 QnA 등록
+#### No.02 Q&A 등록
 
 <img src="./readme_img/2.png" width="60%" height="auto"></img>
 
-- QnA를 등록할 수 있다
+- Q&A를 등록할 수 있다.
+- 등록 버튼을 누르면 Q&A DB에 Insert 되고, 취소 버튼을 누르면 Q&A List 페이지로 이동한다.
 
 ---
 
-#### No.03 QnA 목록
+#### No.03 Q&A 목록
 
 <img src="./readme_img/3.png" width="60%" height="auto"></img>
 
-- QnA목록 조회가 가능하다
+- Q&A 목록 조회가 가능하다.
+- Q&A Answer 부분에 Filter를 적용하여 12글자가 넘어가면 "......" 문자열로 축약된다.
 
 ---
 
-#### No.04 QnA 상세내용
+#### No.04 Q&A 상세내용
 
 <img src="./readme_img/4.png" width="60%" height="auto"></img>
 
-- QnA 상세내용 조회가 가능하다
+- Q&A 상세내용 조회가 가능하다
+- Q&A를 수정하거나 삭제를 할 수 있으며 목록을 누르면 Q&A List 페이지로 이동한다.
 
 ---
 
 ### 🎁 구현Source
 
-- QnA기능에 해당하는 Controller
+- Q&A 기능에 해당하는 Controller
 
 ```
 package com.ssafy.happyhouse.controller;
