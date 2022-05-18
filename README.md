@@ -58,12 +58,6 @@
 
 ---
 
-### Class Diagram
-
-<img src="./src/main/resources/static/readme/UML/classUML.png" width="100%" height="auto"></img>
-
----
-
 ### 💻 구현페이지 (웹 페이지)
 
 #### No.01 메인페이지
