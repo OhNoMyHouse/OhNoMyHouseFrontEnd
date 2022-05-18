@@ -17,20 +17,20 @@
     <select id="getBoard" resultType="Board">
         select *
         from boardinfo
-        where idx = ${idx}
+        where idx = #{idx}
     </select>
 
     <update id="update" parameterType="Board">
         update boardinfo
-        set title   = ${title},
-            content = ${content}
-        where idx = ${idx}
+        set title   = #{title},
+            content = #{content}
+        where idx = #{idx}
     </update>
 
     <delete id="delete">
         delete
         from boardinfo
-        where idx = ${idx}
+        where idx = #{idx}
     </delete>
 
 </mapper>
