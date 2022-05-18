@@ -1,4 +1,4 @@
-# 🎽 SSAFY 다섯 번째 관통 PJT 🎽
+# 🎽 SSAFY 일곱 번째 관통 PJT 🎽
 
 # OhNoMyHouse
 
