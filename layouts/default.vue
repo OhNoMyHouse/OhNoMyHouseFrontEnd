@@ -62,27 +62,27 @@ export default Vue.extend({
         <aside class="links">
           <NuxtLink to="/"
             ><Icon name="home" />
-            <h1>Home</h1></NuxtLink
+            <h6>Home</h6></NuxtLink
           >
           <NuxtLink to="/explore"
             ><Icon name="explore" />
-            <h1>Explore</h1></NuxtLink
+            <h6>Explore</h6></NuxtLink
           >
           <NuxtLink to="/library"
             ><Icon name="library" />
-            <h1>Library</h1></NuxtLink
+            <h6>Library</h6></NuxtLink
           >
           <NuxtLink to="/library/history"
             ><Icon name="history" />
-            <h1>History</h1></NuxtLink
+            <h6>History</h6></NuxtLink
           >
           <NuxtLink to="/library/playlist?list=WL"
             ><Icon name="watch-later" />
-            <h1>Watch later</h1></NuxtLink
+            <h6>Watch later</h6></NuxtLink
           >
           <NuxtLink to="/library/playlist?list=LV"
             ><Icon name="like" />
-            <h1>Liked videos</h1></NuxtLink
+            <h6>Liked videos</h6></NuxtLink
           >
         </aside>
       </aside>
@@ -300,7 +300,7 @@ div {
     &.compact aside.sidebar {
       width: 72px;
 
-      h1 {
+      h6 {
         display: none;
       }
       aside {
