@@ -1,9 +1,18 @@
 <script lang="ts">
 import Vue from "vue";
+import Constant from "@/common/Constant.js";
 
 export default Vue.extend({
   name: "DefaultLayout",
-  data: () => ({ sidebarCollapsed: false }),
+  data: () => ({
+    sidebarCollapsed: false,
+    word: "",
+  }),
+  methods: {
+    searchHouses() {
+      this.$store.dispatch(Constant.GET_HOUSES, { word: this.word });
+    },
+  },
 });
 </script>
 
@@ -21,8 +30,15 @@ export default Vue.extend({
       </aside>
 
       <aside class="search">
-        <button class="action"><Icon name="search" /></button>
-        <input type="text" placeholder="Search" />
+        <button class="action" @click="searchHouses">
+          <Icon name="search" />
+        </button>
+        <input
+          type="text"
+          placeholder="Search"
+          v-model="word"
+          @keyup.enter="searchHouses"
+        />
         <button class="action"><Icon name="microphone" /></button>
       </aside>
 

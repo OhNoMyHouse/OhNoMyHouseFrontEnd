@@ -6,4 +6,7 @@ export default {
   DELETE_QNA: "deleteQna",
   SET_QNAS: "setQnas",
   SET_QNA: "setQna",
+  //-------house
+  GET_HOUSES: "getHouses",
+  SET_HOUSES: "setHouses",
 };
