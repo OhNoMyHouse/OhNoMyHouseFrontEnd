@@ -1,9 +1,18 @@
 <script lang="ts">
 import Vue from "vue";
+import Constant from "@/common/Constant.js";
 
 export default Vue.extend({
   name: "DefaultLayout",
-  data: () => ({ sidebarCollapsed: false }),
+  data: () => ({
+    sidebarCollapsed: false,
+    word: "",
+  }),
+  methods: {
+    searchHouses() {
+      this.$store.dispatch(Constant.GET_HOUSES, { word: this.word });
+    },
+  },
 });
 </script>
 
@@ -21,8 +30,15 @@ export default Vue.extend({
       </aside>
 
       <aside class="search">
-        <button class="action"><Icon name="search" /></button>
-        <input type="text" placeholder="Search" />
+        <button class="action" @click="searchHouses">
+          <Icon name="search" />
+        </button>
+        <input
+          type="text"
+          placeholder="Search"
+          v-model="word"
+          @keyup.enter="searchHouses"
+        />
         <button class="action"><Icon name="microphone" /></button>
       </aside>
 
@@ -46,7 +62,7 @@ export default Vue.extend({
         <aside class="links">
           <NuxtLink to="/"
             ><Icon name="home" />
-            <h1>Home</h1></NuxtLink
+            <h6>Home</h6></NuxtLink
           >
           <NuxtLink to="/Notice"
             ><Icon name="explore" />
@@ -54,19 +70,19 @@ export default Vue.extend({
           >
           <NuxtLink to="/library"
             ><Icon name="library" />
-            <h1>Library</h1></NuxtLink
+            <h6>Library</h6></NuxtLink
           >
           <NuxtLink to="/library/history"
             ><Icon name="history" />
-            <h1>History</h1></NuxtLink
+            <h6>History</h6></NuxtLink
           >
           <NuxtLink to="/library/playlist?list=WL"
             ><Icon name="watch-later" />
-            <h1>Watch later</h1></NuxtLink
+            <h6>Watch later</h6></NuxtLink
           >
           <NuxtLink to="/library/playlist?list=LV"
             ><Icon name="like" />
-            <h1>Liked videos</h1></NuxtLink
+            <h6>Liked videos</h6></NuxtLink
           >
         </aside>
       </aside>
@@ -284,7 +300,7 @@ div {
     &.compact aside.sidebar {
       width: 72px;
 
-      h1 {
+      h6 {
         display: none;
       }
       aside {

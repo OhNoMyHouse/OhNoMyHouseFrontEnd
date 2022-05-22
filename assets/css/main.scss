@@ -23,7 +23,9 @@
     --active: #3a3a41;
   }
 
-  @include breakpoint { --nav-height: 57px }
+  @include breakpoint {
+    --nav-height: 57px;
+  }
 }
 
 * {
@@ -31,25 +33,40 @@
   text-decoration: none;
   box-sizing: border-box;
   scroll-behavior: smooth;
-  padding: 0; margin: 0; border: 0;
-  font: 16px "Inter", sans-serif; font-weight: 400;
-  -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  font: 16px "Inter", sans-serif;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   @include breakpoint(min) {
     &::-webkit-scrollbar {
-      width: 3px; height: 3px;
-      &-track { background: transparent }
-      &-thumb { background: var(--icon) }
+      width: 3px;
+      height: 3px;
+      &-track {
+        background: transparent;
+      }
+      &-thumb {
+        background: var(--icon);
+      }
     }
   }
 
-  &::placeholder { color: var(--icon) }
-  &::selection { background: var(--active) }
+  &::placeholder {
+    color: var(--icon);
+  }
+  &::selection {
+    background: var(--active);
+  }
 
   &.action {
     padding: 8px;
     cursor: pointer;
     border-radius: 9999px;
-    &:hover { background: var(--hover) }
+    &:hover {
+      background: var(--hover);
+    }
   }
 }
 
@@ -58,15 +75,24 @@ body {
 
   svg:not(.logo) {
     width: 24px;
-    path, rect, polygon { fill: var(--icon) }
+    path,
+    rect,
+    polygon {
+      fill: var(--icon);
+    }
   }
 
   .container {
     padding: 24px;
     @include flex($dir: column, $gap: 16px);
-    @include breakpoint { padding: 16px }
+    @include breakpoint {
+      padding: 16px;
+    }
 
-    > h1 { font-size: 20px; font-weight: 500 }
+    > h1 {
+      font-size: 20px;
+      font-weight: 500;
+    }
   }
 
   button {
@@ -85,8 +111,11 @@ body {
         padding: 10px;
         color: var(--red);
         background: transparent;
-        font-size: 18px; text-transform: uppercase;
-        &:hover { background: var(--hover) }
+        font-size: 18px;
+        text-transform: uppercase;
+        &:hover {
+          background: var(--hover);
+        }
       }
     }
   }
