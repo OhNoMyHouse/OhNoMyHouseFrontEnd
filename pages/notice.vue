@@ -6,25 +6,25 @@ import { getReadableDate } from "@/assets/utils";
 export default Vue.extend({
   methods: {
     getReadableDate,
-    getQnas() {
-      this.$store.dispatch(Constant.GET_QNAS);
+    getNotices() {
+      this.$store.dispatch(Constant.GET_NOTICES);
     },
   },
   data: () => ({
     fields: [
       { key: "index", label: "번호", thClass: "w5" },
-      { key: "question", label: "Question", thClass: "w25" },
-      { key: "answer", label: "Answer", thClass: "w45" },
+      { key: "title", label: "Title", thClass: "w25" },
+      { key: "Content", label: "Content", thClass: "w45" },
     ],
   }),
   computed: {
-    qnas() {
-      return this.$store.state.qnas;
+    notices() {
+      return this.$store.state.notices;
     },
   },
   created() {
-    console.log("QnaList Comp.");
-    this.getQnas();
+    console.log("NoticeList Comp.");
+    this.getNotices();
   },
   filters: {
     ellipsis: function (value: string | any[], length: number, endString: any) {
@@ -76,10 +76,12 @@ export default Vue.extend({
       <div>
         <h1 style="margin-top: 100px">QnA</h1>
         <b-button variant="outline-primary"
-          ><router-link to="/qna/makeqna_form">추가</router-link></b-button
+          ><router-link to="/notice/makenotice_form"
+            >추가</router-link
+          ></b-button
         >
       </div>
-      <div v-if="qnas.length > 0">
+      <div v-if="notices.length > 0">
         <b-row>
           <b-col lg="12">
             <b-table
@@ -89,22 +91,22 @@ export default Vue.extend({
               dark
               fixed
               outlined
-              :items="qnas"
+              :items="notices"
               :fields="fields"
             >
               <template #cell(index)="data">
                 {{ data.index + 1 }}
               </template>
-              <template #cell(answer)="data">
-                <router-link :to="'detail/' + data.item.idx">{{
-                  data.item.answer | ellipsis(12, "......")
+              <template #cell(content)="data">
+                <router-link :to="'/notice/detail/' + data.item.idx">{{
+                  data.item.content | ellipsis(12, "......")
                 }}</router-link>
               </template>
             </b-table>
           </b-col>
         </b-row>
       </div>
-      <div v-else class="text-center">등록된 QnA가 없습니다.</div>
+      <div v-else class="text-center">등록된 공지사항이 없습니다.</div>
     </div>
     <!-- 추가 -->
   </aside>
