@@ -26,7 +26,7 @@
                   rows="15"
                   id="content"
                   placeholder="제목을 입력해주세요"
-                  v-model="qna.content"
+                  v-model="notice.content"
                   required
                 ></textarea>
               </div>
@@ -48,13 +48,24 @@
 </template>
 
 <script>
+import http from "@/api/http.js";
 import Constant from "@/common/Constant.js";
 import { mapActions } from "vuex";
 
 export default {
+  // asyncData({ params }) {
+  //   console.log("test" + params.idx);
+  //   // this.$store.dispatch([Constant.GET_NOTICE], { params });
+  //   console.log(http.get(`http://127.0.0.1:8080/notice/${params.idx}`));
+  //   // .then(({ data }) => context.commit(Constant.SET_NOTICE, { notice: data }));
+  //   // console.log(http.get(`http://127.0.0.1:8080/notice/${params.idx}`));
+  //   return {
+  //     notice: "",
+  //   };
+  // },
   data() {
     return {
-      idx: 0,
+      idx: "",
     };
   },
   computed: {
@@ -65,6 +76,7 @@ export default {
   },
   created() {
     console.log("NoticeDetail Comp.");
+    // this.idx = this.$route.params.idx;
     this.idx = this.$route.params.idx;
     this.getNotice({ idx: this.idx });
   },
@@ -72,7 +84,7 @@ export default {
     ...mapActions([Constant.GET_NOTICE]),
     modifyNotice() {
       this.$store
-        .dispatch(Constant.MODIFY_NOTICE, { qna: this.notice })
+        .dispatch(Constant.MODIFY_NOTICE, { notice: this.notice })
         .then(() => {
           alert("수정에 성공하였습니다.");
           this.moveList();

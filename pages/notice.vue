@@ -98,8 +98,16 @@ export default Vue.extend({
                 {{ data.index + 1 }}
               </template>
               <template #cell(content)="data">
-                <NuxtLink
+                <!-- <NuxtLink
                   :to="{ name: 'notice-idx', params: { idx: data.item.idx } }"
+                  >{{ data.item.content | ellipsis(12, "......") }}</NuxtLink
+                > -->
+                <NuxtLink
+                  :to="{
+                    name: 'idx',
+                    params: { idx: data.item.idx },
+                  }"
+                  append
                   >{{ data.item.content | ellipsis(12, "......") }}</NuxtLink
                 >
               </template>
