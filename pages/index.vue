@@ -1,8 +1,10 @@
 <script>
 import Vue from "vue";
+import HouseList from "@/components/house/HouseList.vue";
 import { mapGetters } from "vuex";
 
 export default Vue.extend({
+  components: { HouseList },
   data: () => ({
     map: null,
     markers: [],
@@ -202,13 +204,7 @@ export default Vue.extend({
           visible
           aria-expanded="true"
         >
-          <!-- 거래 리스트  -->
-          <!-- <b-table :items="houses" :fields="fields">
-          <b-table :items="houses">
-            <template #cell(dName)="data">
-              {{ data.dongName }}
-            </template>
-          </b-table> -->
+          <house-list />
         </b-sidebar>
       </div>
     </template>
