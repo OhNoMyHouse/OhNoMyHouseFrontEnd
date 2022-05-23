@@ -24,7 +24,9 @@ const Config: NuxtConfig = {
     link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.png" }],
     script: [
       {
-        src: "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=13195c6e1a069f22f4340a26aec44a00&libraries=services",
+        src:
+          "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=13195c6e1a069f22f4340a26aec44a00&libraries=services" +
+          "&libraries=services,clusterer",
       },
     ],
   },
