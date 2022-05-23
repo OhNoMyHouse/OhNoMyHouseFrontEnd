@@ -6,7 +6,9 @@ export default Vue.extend({
   data: () => ({
     map: null,
     markers: [],
+    clusterer: null,
     ps: null,
+    bounds: null,
     // videos,
     activeTag: "All",
     tags: [
@@ -35,7 +37,6 @@ export default Vue.extend({
   methods: {
     initMap() {
       var mapContainer = document.getElementById("map"); // 지도를 표시할 div
-
       var mapOption = {
         center: new kakao.maps.LatLng(37.5012743, 127.039585), // 지도의 중심좌표
         level: 5, // 지도의 확대 레벨
@@ -71,53 +72,61 @@ export default Vue.extend({
         contentNode = document.createElement("div"), // 커스텀 오버레이의 컨텐츠 엘리먼트 입니다
         markers = [], // 마커를 담을 배열입니다
         currCategory = ""; // 현재 선택된 카테고리를 가지고 있을 변수입니다
+
+      this.clusterer = new kakao.maps.MarkerClusterer({
+        map: this.map, // 마커들을 클러스터로 관리하고 표시할 지도 객체
+        averageCenter: true, // 클러스터에 포함된 마커들의 평
+        // minClusterSize: 1, // 1개 마커 클러스터링
+      });
     },
 
     updateMap(houses) {
       this.clearMarkers(null);
+      this.clusterer.clear();
+      this.bounds = new kakao.maps.LatLngBounds();
       var level = this.map.getLevel();
       console.log("현재 지도의 레벨 : " + this.map.getLevel());
 
       for (let i = 0; i < houses.length; i++) {
         const position = new kakao.maps.LatLng(houses[i].lat, houses[i].lng);
-        this.addMarker(this.map, position, houses[i]);
+        this.addMarker(position, houses[i]);
       }
+
+      this.clusterer.addMarkers(this.markers);
       // 지도 중심 이동
-      if (houses.length > 1) this.setCenter(houses[0].lat, houses[0].lng);
+      // if (houses.length > 1) this.setCenter(houses[0].lat, houses[0].lng);
+      this.setBounds();
     },
     //----------------------------
-    setCenter(lat, lng) {
-      // 이동할 위도 경도 위치를 생성합니다
-      var moveLatLon = new kakao.maps.LatLng(lat, lng);
 
-      // 지도 중심을 이동 시킵니다
-      this.map.setCenter(moveLatLon);
-    },
     // 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
-    addMarker(map, position, data) {
-      var imageSrc =
-        "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png"; // 마커 이미지 url, 스프라이트 이미지를 씁니다
-      var imageSize = new kakao.maps.Size(36, 37); // 마커 이미지의 크기
-      var imgOptions = {
-        spriteSize: new kakao.maps.Size(36, 691), // 스프라이트 이미지의 크기
-        offset: new kakao.maps.Point(13, 37), // 마커 좌표에 일치시킬 이미지 내에서의 좌표
-      };
-      var markerImage = new kakao.maps.MarkerImage(
-        imageSrc,
-        imageSize,
-        imgOptions
-      );
+    addMarker(position, data) {
+      // var imageSrc =
+      //   "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png"; // 마커 이미지 url, 스프라이트 이미지를 씁니다
+      // var imageSize = new kakao.maps.Size(36, 37); // 마커 이미지의 크기
+      // var imgOptions = {
+      //   spriteSize: new kakao.maps.Size(36, 691), // 스프라이트 이미지의 크기
+      //   offset: new kakao.maps.Point(13, 37), // 마커 좌표에 일치시킬 이미지 내에서의 좌표
+      // };
+      // var markerImage = new kakao.maps.MarkerImage(
+      //   imageSrc,
+      //   imageSize,
+      //   imgOptions
+      // );
       var marker = new kakao.maps.Marker({
         position: position,
-        image: markerImage,
       });
 
       marker.setMap(this.map); // 지도 위에 마커를 표출합니다
       this.markers.push(marker); // 배열에 생성된 마커를 추가합니다
 
+      // LatLngBounds 객체에 좌표를 추가합니다
+      this.bounds.extend(position);
+
       kakao.maps.event.addListener(marker, "click", function () {
-        select(data);
-        open();
+        // select(data);
+        // open();
+        // console.log(marker);
       });
     },
 
@@ -139,6 +148,18 @@ export default Vue.extend({
           displayMarker(data[i]);
         }
       }
+    },
+    setCenter(lat, lng) {
+      // 이동할 위도 경도 위치를 생성합니다
+      var moveLatLon = new kakao.maps.LatLng(lat, lng);
+
+      // 지도 중심을 이동 시킵니다
+      this.map.setCenter(moveLatLon);
+    },
+    setBounds() {
+      // LatLngBounds 객체에 추가된 좌표들을 기준으로 지도의 범위를 재설정합니다
+      // 이때 지도의 중심좌표와 레벨이 변경될 수 있습니다
+      this.map.setBounds(this.bounds);
     },
   },
 });
@@ -181,20 +202,9 @@ export default Vue.extend({
           visible
           aria-expanded="true"
         >
-          <!-- <div class="px-3 py-2">
-            <p>
-              Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-              dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
-              ac consectetur ac, vestibulum at eros.
-            </p>
-            <b-img
-              src="https://picsum.photos/500/500/?image=54"
-              fluid
-              thumbnail
-            ></b-img>
-          </div> -->
           <!-- 거래 리스트  -->
           <!-- <b-table :items="houses" :fields="fields">
+          <b-table :items="houses">
             <template #cell(dName)="data">
               {{ data.dongName }}
             </template>

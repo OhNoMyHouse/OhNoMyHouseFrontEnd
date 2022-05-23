@@ -66,7 +66,7 @@ export default Vue.extend({
           >
           <NuxtLink to="/notice"
             ><Icon name="explore" />
-            <h1>Notice</h1></NuxtLink
+            <h6>Notice</h6></NuxtLink
           >
           <NuxtLink to="/library"
             ><Icon name="library" />
@@ -94,6 +94,10 @@ export default Vue.extend({
 
 <style lang="scss">
 @import "@/assets/css/mixins.scss";
+
+h6 {
+  margin: 0;
+}
 
 div {
   header.navigation {
