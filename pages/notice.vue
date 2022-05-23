@@ -98,9 +98,10 @@ export default Vue.extend({
                 {{ data.index + 1 }}
               </template>
               <template #cell(content)="data">
-                <router-link :to="'/notice/detail/' + data.item.idx">{{
-                  data.item.content | ellipsis(12, "......")
-                }}</router-link>
+                <NuxtLink
+                  :to="{ name: 'notice-idx', params: { idx: data.item.idx } }"
+                  >{{ data.item.content | ellipsis(12, "......") }}</NuxtLink
+                >
               </template>
             </b-table>
           </b-col>

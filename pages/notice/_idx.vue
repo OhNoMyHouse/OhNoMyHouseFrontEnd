@@ -67,7 +67,6 @@ export default {
     console.log("NoticeDetail Comp.");
     this.idx = this.$route.params.idx;
     this.getNotice({ idx: this.idx });
-    console.log(this.log);
   },
   methods: {
     ...mapActions([Constant.GET_NOTICE]),

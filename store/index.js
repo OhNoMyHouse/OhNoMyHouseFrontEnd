@@ -6,15 +6,15 @@ const store = () =>
   new Vuex.Store({
     state: {
       counter: 0,
-      qnas: [],
-      qna: {},
+      notices: [],
+      notice: {},
       //-----house
       houses: [],
     },
     getters: {
-      qnas(state) {
-        console.log("store getters qnas.");
-        return state.qnas;
+      notices(state) {
+        console.log("store getters notices.");
+        return state.notices;
       },
       houses(state) {
         console.log("store getters houses.");
@@ -23,11 +23,12 @@ const store = () =>
       //-----house
     },
     mutations: {
-      [Constant.SET_QNAS](state, payload) {
-        state.qnas = payload.qnas;
+      //-----notice
+      [Constant.SET_NOTICES](state, payload) {
+        state.notices = payload.notices;
       },
-      [Constant.SET_QNA](state, payload) {
-        state.qna = payload.qna;
+      [Constant.SET_NOTICE](state, payload) {
+        state.notice = payload.notice;
       },
       //-----house
       [Constant.SET_HOUSES](state, payload) {
@@ -35,42 +36,43 @@ const store = () =>
       },
     },
     actions: {
-      [Constant.GET_QNAS](context) {
+      //-----notice
+      [Constant.GET_NOTICES](context) {
         axios
           .get("http://127.0.0.1:8080/notice")
           .then(({ data }) =>
-            context.commit(Constant.SET_QNAS, { qnas: data })
+            context.commit(Constant.SET_NOTICES, { notices: data })
           );
       },
-      [Constant.GET_QNA](context, payload) {
+      [Constant.GET_NOTICE](context, payload) {
         axios
-          .get(`http://127.0.0.1:8080/qna/${payload.idx}`)
-          .then(({ data }) => context.commit(Constant.SET_QNA, { qna: data }));
+          .get(`http://127.0.0.1:8080/notice/${payload.idx}`)
+          .then(({ data }) => context.commit(Constant.SET_NOTICE, { notice: data }));
       },
-      [Constant.MODIFY_QNA](context, payload) {
+      [Constant.MODIFY_NOTICE](context, payload) {
         return axios
-          .put(`http://127.0.0.1:8080/qna/${payload.qna.idx}`, {
-            idx: payload.qna.idx,
-            question: payload.qna.question,
-            answer: payload.qna.answer,
+          .put(`http://127.0.0.1:8080/notice/${payload.notice.idx}`, {
+            idx: payload.notice.idx,
+            question: payload.notice.question,
+            answer: payload.notice.answer,
           })
           .then(() => {
-            console.log("store : qna 수정에 성공하였습니다.");
+            console.log("store : notice 수정에 성공하였습니다.");
           });
       },
-      [Constant.DELETE_QNA](context, payload) {
-        return axios.delete(`http://127.0.0.1:8080/qna/${payload}`).then(() => {
-          console.log("store : qna 삭제에 성공하였습니다.");
+      [Constant.DELETE_NOTICE](context, payload) {
+        return axios.delete(`http://127.0.0.1:8080/notice/${payload}`).then(() => {
+          console.log("store : notice 삭제에 성공하였습니다.");
         });
       },
-      [Constant.REGIST_QNA](context, payload) {
+      [Constant.REGIST_NOTICE](context, payload) {
         axios
-          .post("http://127.0.0.1:8080/qna", {
-            question: payload.qna.question,
-            answer: payload.qna.answer,
+          .post("http://127.0.0.1:8080/notice", {
+            question: payload.notice.question,
+            answer: payload.notice.answer,
           })
           .then(() => {
-            console.log("store : qna 등록에 성공하였습니다.");
+            console.log("store : notice 등록에 성공하였습니다.");
           });
       },
       //------house

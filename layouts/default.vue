@@ -64,7 +64,7 @@ export default Vue.extend({
             ><Icon name="home" />
             <h6>Home</h6></NuxtLink
           >
-          <NuxtLink to="/Notice"
+          <NuxtLink to="/notice"
             ><Icon name="explore" />
             <h1>Notice</h1></NuxtLink
           >

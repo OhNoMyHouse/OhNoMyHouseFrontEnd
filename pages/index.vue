@@ -194,11 +194,11 @@ export default Vue.extend({
             ></b-img>
           </div> -->
           <!-- 거래 리스트  -->
-          <b-table :items="houses" :fields="fields">
+          <!-- <b-table :items="houses" :fields="fields">
             <template #cell(dName)="data">
               {{ data.dongName }}
             </template>
-          </b-table>
+          </b-table> -->
         </b-sidebar>
       </div>
     </template>

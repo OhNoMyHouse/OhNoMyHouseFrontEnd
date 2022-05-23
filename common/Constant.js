@@ -1,5 +1,5 @@
 export default {
-  //-------Notices 
+  //-------notices 
   GET_NOTICES: "getNotices",
   GET_NOTICE: "getNotice",
   REGIST_NOTICE: "registNotice",
