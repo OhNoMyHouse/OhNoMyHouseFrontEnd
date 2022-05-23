@@ -95,6 +95,10 @@ export default Vue.extend({
 <style lang="scss">
 @import "@/assets/css/mixins.scss";
 
+h6 {
+  margin: 0;
+}
+
 div {
   header.navigation {
     padding: 8px 12px;
