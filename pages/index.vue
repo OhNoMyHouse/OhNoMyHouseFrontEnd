@@ -313,6 +313,7 @@ aside.content#home {
     }
   }
 }
+
 // 사이드바 위치
 #sidebar-right {
   width: 520px;
