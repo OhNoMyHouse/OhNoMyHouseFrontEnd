@@ -15,7 +15,7 @@
                   type="text"
                   class="form-control"
                   id="title"
-                  placeholder="내용을 입력해주세요"
+                  placeholder="제목을 입력해주세요"
                   v-model="notice.title"
                   required
                 />
@@ -25,8 +25,8 @@
                   class="form-control"
                   rows="15"
                   id="content"
-                  placeholder="제목을 입력해주세요"
-                  v-model="qna.content"
+                  placeholder="내용을 입력해주세요"
+                  v-model="notice.content"
                   required
                 ></textarea>
               </div>
@@ -48,13 +48,14 @@
 </template>
 
 <script>
+import http from "@/api/http.js";
 import Constant from "@/common/Constant.js";
 import { mapActions } from "vuex";
 
 export default {
   data() {
     return {
-      idx: 0,
+      idx: "",
     };
   },
   computed: {
@@ -67,19 +68,19 @@ export default {
     console.log("NoticeDetail Comp.");
     this.idx = this.$route.params.idx;
     this.getNotice({ idx: this.idx });
-    console.log(this.log);
   },
   methods: {
     ...mapActions([Constant.GET_NOTICE]),
     modifyNotice() {
       this.$store
-        .dispatch(Constant.MODIFY_NOTICE, { qna: this.notice })
+        .dispatch(Constant.MODIFY_NOTICE, { notice: this.notice })
         .then(() => {
           alert("수정에 성공하였습니다.");
           this.moveList();
         });
     },
     deleteNotice() {
+      console.log("delete", this.notice);
       this.$store.dispatch(Constant.DELETE_NOTICE, this.notice).then(() => {
         alert("삭제에 성공하였습니다.");
         this.moveList();

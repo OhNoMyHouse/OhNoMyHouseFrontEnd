@@ -53,23 +53,23 @@ export const actions = {
     return http
       .put(`notice/${payload.notice.idx}`, {
         idx: payload.notice.idx,
-        question: payload.notice.question,
-        answer: payload.notice.answer,
+        title: payload.notice.title,
+        content: payload.notice.content,
       })
       .then(() => {
         console.log("store : notice 수정에 성공하였습니다.");
       });
   },
   [Constant.DELETE_NOTICE](context, payload) {
-    return http.delete(`notice/${payload}`).then(() => {
+    return http.delete(`notice/${payload.idx}`).then(() => {
       console.log("store : notice 삭제에 성공하였습니다.");
     });
   },
   [Constant.REGIST_NOTICE](context, payload) {
     http
       .post("notice", {
-        question: payload.notice.question,
-        answer: payload.notice.answer,
+        title: payload.notice.title,
+        content: payload.notice.content,
       })
       .then(() => {
         console.log("store : notice 등록에 성공하였습니다.");

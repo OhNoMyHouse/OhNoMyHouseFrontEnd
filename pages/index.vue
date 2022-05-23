@@ -1,10 +1,10 @@
 <script>
 import Vue from "vue";
-import HouseList from "@/components/house/HouseList.vue";
+// import HouseList from "@/components/house/HouseList.vue";
 import { mapGetters } from "vuex";
 
 export default Vue.extend({
-  components: { HouseList },
+  // components: { HouseList },
   data: () => ({
     map: null,
     markers: [],
