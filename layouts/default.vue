@@ -48,6 +48,15 @@ export default Vue.extend({
         </button>
         <button class="search action"><Icon name="search" /></button>
         <button class="avatar action"><Icon name="user" /></button>
+        <b-button
+          to="/user/login"
+          style="
+            background: #1a73e8;
+            border: 1px solid transparent;
+            margin-left: 8px;
+          "
+          >로그인</b-button
+        >
       </aside>
     </header>
 
