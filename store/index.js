@@ -1,6 +1,5 @@
 import http from "@/api/http.js";
 import Constant from "@/common/Constant.js";
-import axios from "axios";
 
 export const state = () => ({
   notices: [],
@@ -77,6 +76,16 @@ export const actions = {
   },
   //------house
   [Constant.GET_HOUSES](context, payload) {
+    http
+      .get(`map/search?word=${payload.word}`)
+      .then(({ data }) => {
+        if (data.length != 0) {
+          context.commit(Constant.SET_HOUSES, { houses: data });
+          console.log("검색 결과 " + data.length + "개의 항목");
+        }
+      });
+  },
+  [Constant.GET_HOUSE](context, payload) {
     http
       .get(`map/search?word=${payload.word}`)
       .then(({ data }) => {

@@ -37,7 +37,7 @@
 import { mapGetters } from "vuex";
 
 export default {
-  // name: "HouseListItem",
+  name: "HouseListItem",
   data() {
     return {
       isColor: false,

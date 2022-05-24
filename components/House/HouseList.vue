@@ -1,5 +1,6 @@
 <template>
   <b-container v-if="houses && houses.length != 0" class="bv-example-row mt-3">
+    {{ houses.length }} 개의 검색 목록입니다.
     <house-list-item
       v-for="(house, index) in houses"
       :key="index"
@@ -14,12 +15,12 @@
 </template>
 
 <script>
-// import HouseListItem from "@/components/house/HouseListItem.vue";
+import HouseListItem from "@/components/house/HouseListItem.vue";
 import { mapGetters } from "vuex";
 
 export default {
   name: "HouseList",
-  // components: { HouseListItem },
+  components: { HouseListItem },
   data() {
     return {};
   },

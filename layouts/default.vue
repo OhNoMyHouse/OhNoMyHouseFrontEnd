@@ -1,6 +1,7 @@
 <script lang="ts">
 import Vue from "vue";
 import Constant from "@/common/Constant.js";
+import { log } from "console";
 
 export default Vue.extend({
   name: "DefaultLayout",
@@ -10,7 +11,12 @@ export default Vue.extend({
   }),
   methods: {
     searchHouses() {
-      this.$store.dispatch(Constant.GET_HOUSES, { word: this.word });
+      if (this.word != "") {
+        this.$store.dispatch(Constant.GET_HOUSES, { word: this.word });
+        console.log(this.word);
+      } else {
+        alert("검색어를 입력해 주세요");
+      }
     },
   },
 });

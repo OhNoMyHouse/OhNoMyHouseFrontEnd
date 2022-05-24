@@ -10,4 +10,6 @@ export default {
   //-------house
   GET_HOUSES: "getHouses",
   SET_HOUSES: "setHouses",
+  GET_HOUSE: "getHouse",
+  SET_HOUSE: "setHouse",
 };
