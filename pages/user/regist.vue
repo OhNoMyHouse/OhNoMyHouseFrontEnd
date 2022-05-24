@@ -28,7 +28,7 @@
         <br /><br />
 
         <label for="feedback-user">Name</label>
-        <b-form-input v-model="name"></b-form-input>
+        <b-form-input v-model="name" required></b-form-input>
         <b-form-text id="name-help-block" class="m-2"> </b-form-text>
         <br /><br />
 

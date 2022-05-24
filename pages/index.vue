@@ -189,7 +189,10 @@ export default Vue.extend({
         <button @click="$refs.tags.scrollLeft += 120">
           <Icon name="chevron-right" />
         </button>
-        <b-button v-b-toggle.sidebar-right variant="black" style="padding: 5px"
+        <b-button
+          v-b-toggle.sidebar-right
+          variant="black"
+          style="padding: 5px; display: none"
           >거래 정보</b-button
         >
       </aside>
@@ -210,7 +213,10 @@ export default Vue.extend({
       </div>
     </template>
     <!-- height: calc(100vh - var(--nav-height)) -->
-    <div id="map" style="width: 100%; height: calc(100vh - 125px)"></div>
+    <div
+      id="map"
+      style="width: calc(100vw - 452px); height: calc(100vh - 125px)"
+    ></div>
   </aside>
 </template>
 
@@ -316,7 +322,7 @@ aside.content#home {
 
 // 사이드바 위치
 #sidebar-right {
-  width: 520px;
+  width: 380px;
   top: 123px;
   height: calc(100vh - 125px);
 }
