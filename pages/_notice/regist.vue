@@ -6,7 +6,7 @@
         <div class="container">
           <div class="col p-5 rounded">
             <header class="section-header wow fadeInUp">
-              <h3>QnA 등록</h3>
+              <h3>Notice 등록</h3>
             </header>
             <div class="poll-content">
               <form class="was-validated">
@@ -14,9 +14,9 @@
                   <input
                     type="text"
                     class="form-control"
-                    id="question"
-                    placeholder="질문을 입력해주세요"
-                    v-model="question"
+                    id="title"
+                    placeholder="제목을 입력해주세요"
+                    v-model="title"
                     required
                   />
                 </div>
@@ -24,13 +24,13 @@
                   <textarea
                     class="form-control"
                     rows="15"
-                    id="answer"
-                    placeholder="답변을 입력해주세요"
-                    v-model="answer"
+                    id="content"
+                    placeholder="내용을 입력해주세요"
+                    v-model="content"
                     required
                   ></textarea>
                 </div>
-                <button @click="registQna" class="btn btn-outline-success">
+                <button @click="registNotice" class="btn btn-outline-success">
                   등록
                 </button>
                 <button @click="moveList" class="btn btn-outline-dark">
@@ -42,6 +42,7 @@
         </div>
       </section>
     </main>
+    <nuxt-child />
   </div>
 </template>
 
@@ -50,26 +51,26 @@ import Constant from "@/common/Constant";
 export default {
   data() {
     return {
-      question: "",
-      answer: "",
+      title: "",
+      content: "",
     };
   },
   created() {
-    console.log("QnaRegistForm Comp.");
+    console.log("NoticeRegistForm Comp.");
   },
   methods: {
-    registQna() {
+    registNotice() {
       this.$store
-        .dispatch(Constant.REGIST_QNA, {
-          qna: { question: this.question, answer: this.answer },
+        .dispatch(Constant.REGIST_NOTICE, {
+          notice: { title: this.title, content: this.content },
         })
         .then(() => {
-          alert("Qna 등록에 성공하였습니다.");
+          alert("Notice 등록에 성공하였습니다.");
           this.moveList();
         });
     },
     moveList() {
-      this.$router.push("/qna");
+      this.$router.push("/notice");
     },
   },
 };

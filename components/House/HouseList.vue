@@ -14,12 +14,12 @@
 </template>
 
 <script>
-import HouseListItem from "@/components/house/HouseListItem.vue";
+// import HouseListItem from "@/components/house/HouseListItem.vue";
 import { mapGetters } from "vuex";
 
 export default {
   name: "HouseList",
-  components: { HouseListItem },
+  // components: { HouseListItem },
   data() {
     return {};
   },

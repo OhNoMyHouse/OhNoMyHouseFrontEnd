@@ -11,13 +11,14 @@
     "resolveJsonModule": true,
     "moduleResolution": "node",
     "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": false,
     "lib": ["esnext", "esnext.asyncIterable", "dom"],
     "types": ["@nuxt/types", "@types/node", "@nuxt/image"],
 
     "baseUrl": ".",
     "paths": {
       "@/*": ["./*"]
-    },
+    }
   },
 
   "include": ["**/*.ts", "**/*.vue", "types"],

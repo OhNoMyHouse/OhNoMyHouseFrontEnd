@@ -37,7 +37,7 @@ export default Vue.extend({
 
 <template>
   <aside class="content" id="explore">
-    <section class="tags container">
+    <!-- <section class="tags container">
       <button>
         <Icon name="trending" />
         <h1>Trending</h1>
@@ -69,16 +69,19 @@ export default Vue.extend({
         <Icon name="live" />
         <h1>Live</h1>
       </button>
-    </section>
+    </section> -->
 
     <!-- 추가 -->
     <div class="container">
       <div>
-        <h1 style="margin-top: 100px">QnA</h1>
+        <h1 style="margin-top: 100px">Notice</h1>
         <b-button variant="outline-primary"
-          ><router-link to="/notice/makenotice_form"
+          ><router-link :to="{ path: `/notice/regist` }"
             >추가</router-link
           ></b-button
+        >
+        <b-button variant="outline-primary"
+          ><router-link to="/notice/regist">추가</router-link></b-button
         >
       </div>
       <div v-if="notices.length > 0">
@@ -98,18 +101,16 @@ export default Vue.extend({
                 {{ data.index + 1 }}
               </template>
               <template #cell(content)="data">
-                <!-- <NuxtLink
-                  :to="{ name: 'notice-idx', params: { idx: data.item.idx } }"
-                  >{{ data.item.content | ellipsis(12, "......") }}</NuxtLink
-                > -->
                 <NuxtLink
                   :to="{
-                    name: 'idx',
+                    path: `/notice/${data.item.idx}`,
                     params: { idx: data.item.idx },
                   }"
-                  append
                   >{{ data.item.content | ellipsis(12, "......") }}</NuxtLink
                 >
+                <!-- <NuxtLink :to="`${data.item.idx}`">{{
+                  data.item.content | ellipsis(12, "......")
+                }}</NuxtLink> -->
               </template>
             </b-table>
           </b-col>
