@@ -1,36 +1,22 @@
 <template>
-  <b-row
-    class="m-2"
-    @click="selectHouse"
-    @mouseover="colorChange(true)"
-    @mouseout="colorChange(false)"
-    :class="{ 'mouse-over-bgcolor': isColor }"
-  >
-    <b-card
-      img-src="@/assets/img/house.png"
-      img-alt="Image"
-      img-top
-      tag="article"
-      style="max-width: 20rem"
-      class="mb-2"
-    >
-      <b-card-text>
-        <strong>{{ house.aptName }}</strong>
-      </b-card-text>
-      <b-card-text>
-        <b-list-group flush>
-          <b-list-group-item
-            >{{ house.sidoName }} {{ house.gugunName }}
-            {{ house.dongName }}</b-list-group-item
-          >
-          <b-list-group-item
-            >실거래가 : {{ house.recentPrice }} 만원</b-list-group-item
-          >
-        </b-list-group>
-      </b-card-text>
+  <div v-if="house.recentPrice != null">
+    <b-card no-body class="overflow-hidden" style="max-width: 440px">
+      <b-row no-gutters>
+        <b-col md="4">
+          <b-card-img src="@/assets/img/house.png" style="width: 120px; height: 100px" alt="Image" class="rounded-0"></b-card-img>
+        </b-col>
+        <b-col md="8">
+          <b-card-body>
+            <b-card-text style="font-size: small">
+              {{ house.sidoName | sido }} {{ house.gugunName }} {{ house.dongName }} <br />
+              <br />
+              실거래가 : {{ house.recentPrice }} 만원
+            </b-card-text>
+          </b-card-body>
+        </b-col>
+      </b-row>
     </b-card>
-    <div></div>
-  </b-row>
+  </div>
 </template>
 
 <script>
@@ -51,6 +37,12 @@ export default {
     selectHouse() {},
     colorChange(flag) {
       this.isColor = flag;
+    },
+  },
+
+  filters: {
+    sido: function (value) {
+      return value.toString().substr(0, 2);
     },
   },
 };
