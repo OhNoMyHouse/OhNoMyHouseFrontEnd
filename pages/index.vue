@@ -1,17 +1,20 @@
 <script>
 import Vue from "vue";
 import HouseList from "@/components/house/HouseList.vue";
+import FilterList from "@/components/filter/FilterList.vue";
 import { mapGetters } from "vuex";
 
 export default Vue.extend({
-  components: { HouseList },
+  components: {
+    HouseList,
+    FilterList,
+  },
   data: () => ({
     map: null,
     markers: [],
     clusterer: null,
     ps: null,
     bounds: null,
-    // videos,
     activeTag: "All",
     tags: [
       // { key: "CS2", label: "편의점" },
@@ -172,6 +175,7 @@ export default Vue.extend({
   <aside class="content" id="home">
     <section class="tags">
       <div class="overlay-start" />
+      <filter-list />
       <aside class="track" ref="tags">
         <button
           @click="activeTag = tag"
@@ -300,21 +304,6 @@ aside.content#home {
           width: 12px;
           background: linear-gradient(to right, transparent, var(--bg));
         }
-      }
-    }
-
-    &.videos {
-      padding: 24px;
-      @include grid(4, $mb: 1);
-      @include breakpoint {
-        padding: 0;
-        gap: 0;
-      }
-      @include breakpoint(min, 1920px) {
-        @include grid(5);
-      }
-      @include breakpoint(min, 2250px) {
-        @include grid(6);
       }
     }
   }

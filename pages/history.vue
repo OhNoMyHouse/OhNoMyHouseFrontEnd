@@ -11,30 +11,6 @@ export default Vue.extend({
   <aside class="content" id="history">
     <aside class="container">
       <h1>History</h1>
-
-      <section class="videos">
-        <Video :video="video" v-for="(video, index) in videos" :key="index" />
-      </section>
-    </aside>
-
-    <aside class="sidebar">
-      <figure class="search">
-        <button class="action"><Icon name="search" /></button>
-        <input type="text" placeholder="Search watch history" />
-      </figure>
-
-      <button>
-        <Icon name="trash" />
-        <h1>Clear all watch history</h1>
-      </button>
-      <button>
-        <Icon name="pause" />
-        <h1>Pause watch history</h1>
-      </button>
-      <button>
-        <Icon name="settings" />
-        <h1>Manage all history</h1>
-      </button>
     </aside>
   </aside>
 </template>

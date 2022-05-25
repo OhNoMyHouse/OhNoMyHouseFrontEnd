@@ -80,9 +80,6 @@ export default Vue.extend({
             >추가</router-link
           ></b-button
         >
-        <b-button variant="outline-primary"
-          ><router-link to="/notice/regist">추가</router-link></b-button
-        >
       </div>
       <div v-if="notices.length > 0">
         <b-row>

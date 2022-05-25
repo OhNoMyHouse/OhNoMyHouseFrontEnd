@@ -1,7 +1,6 @@
 <script lang="ts">
 import Vue from "vue";
 import Constant from "@/common/Constant.js";
-import { log } from "console";
 
 export default Vue.extend({
   name: "DefaultLayout",
@@ -83,21 +82,13 @@ export default Vue.extend({
             ><Icon name="explore" />
             <h6>Notice</h6></NuxtLink
           >
-          <NuxtLink to="/library"
+          <NuxtLink to="/favorite"
             ><Icon name="library" />
-            <h6>Library</h6></NuxtLink
+            <h6>Favorite</h6></NuxtLink
           >
-          <NuxtLink to="/library/history"
+          <NuxtLink to="/history"
             ><Icon name="history" />
             <h6>History</h6></NuxtLink
-          >
-          <NuxtLink to="/library/playlist?list=WL"
-            ><Icon name="watch-later" />
-            <h6>Watch later</h6></NuxtLink
-          >
-          <NuxtLink to="/library/playlist?list=LV"
-            ><Icon name="like" />
-            <h6>Liked videos</h6></NuxtLink
           >
         </aside>
       </aside>
@@ -212,7 +203,8 @@ div {
         border-right: 1px solid var(--gray);
         height: calc(100vh - var(--nav-height));
         position: sticky;
-        top: var(--nav-height);
+        // top: var(--nav-height);
+        top: var(-height);
         @include breakpoint {
           width: 100%;
           height: auto;
@@ -226,10 +218,6 @@ div {
           @include breakpoint {
             padding: 0;
             @include grid(4, 0);
-            &.library,
-            &.subscriptions {
-              display: none;
-            }
           }
 
           > h1 {
@@ -270,30 +258,7 @@ div {
               @include breakpoint {
                 position: relative;
                 background: transparent;
-
-                &::after {
-                  content: "";
-                  height: 3px;
-                  background: var(--red);
-                  position: absolute;
-                  top: 0;
-                  left: 0;
-                  right: 0;
-                }
               }
-            }
-          }
-
-          &.links a:last-child {
-            display: none;
-            @include breakpoint {
-              display: flex;
-            }
-          }
-          &:not(:last-child) {
-            border-bottom: 1px solid var(--gray);
-            @include breakpoint {
-              border: none;
             }
           }
         }
@@ -303,15 +268,6 @@ div {
         }
         &:hover::-webkit-scrollbar-thumb {
           background: var(--icon);
-        }
-      }
-
-      &.content {
-        width: 100%;
-        overflow-y: auto;
-        max-height: calc(100vh - var(--nav-height));
-        @include breakpoint {
-          max-height: calc(100vh - var(--nav-height) - 59px);
         }
       }
     }
@@ -338,7 +294,6 @@ div {
     }
   }
 
-  &#watch-page,
   &#error-page {
     main {
       aside.content {

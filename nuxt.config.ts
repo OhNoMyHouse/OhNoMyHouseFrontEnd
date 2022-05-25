@@ -35,7 +35,7 @@ const Config: NuxtConfig = {
   css: ["@/assets/css/main"],
   buildModules: ["@nuxt/typescript-build", ["@nuxt/image", ImageConfig]],
 
-  modules: ["bootstrap-vue/nuxt"],
+  modules: ["bootstrap-vue/nuxt", "nuxt-vuex-localstorage"],
 };
 
 export default Config;
