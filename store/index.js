@@ -1,6 +1,8 @@
 import http from "@/api/http.js";
 import Constant from "@/common/Constant.js";
 
+export const strict = false;
+
 export const state = () => ({
   notices: [],
   notice: {},
@@ -96,7 +98,9 @@ export const actions = {
   [Constant.GET_NOTICE](context, payload) {
     http
       .get(`notice/${payload.idx}`)
-      .then(({ data }) => context.commit(Constant.SET_NOTICE, { notice: data }));
+      .then(({ data }) =>
+        context.commit(Constant.SET_NOTICE, { notice: data })
+      );
   },
   [Constant.MODIFY_NOTICE](context, payload) {
     return http
@@ -206,4 +210,4 @@ export const actions = {
   },
 }
 
-export const modules = {}
+export const modules = {};
