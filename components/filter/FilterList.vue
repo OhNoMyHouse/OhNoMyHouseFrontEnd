@@ -1,12 +1,21 @@
 <template>
   <aside class="filter">
-    <select class="form-control" id="sido" @click="getSido()">
+    <!-- <select class="form-control" id="sido" v-model="sidoCode">
       <option value="*">시/도</option>
-      <option v-for="(ss, index) in sido" value="ss.sidoCode" :key="index">
+      <option v-for="(ss, index) in sido" :key="index">
         {{ ss.sidoName }}
       </option>
-    </select>
-    <select class="form-control" id="gugun" @click="getGugun()">
+    </select> -->
+    <b-form-select
+      v-model="sidoCode"
+      :options="sido"
+      @change="gugunList"
+    ></b-form-select>
+    <select
+      class="form-control"
+      id="gugun"
+      @click="getGugun({ sido: this.sidoCode })"
+    >
       <option value="*">구/군</option>
       <option v-for="(gg, index) in gugun" value="gg.gugunCode" :key="index">
         {{ gg.gugunName }}
@@ -23,14 +32,24 @@
 
 <script>
 import Constant from "@/common/Constant.js";
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapActions, mapMutations } from "vuex";
 
 export default {
   data() {
-    return {};
+    return {
+      sidoCode: null,
+      gugunCode: null,
+    };
   },
   computed: {
     ...mapGetters(["sido", "gugun", "dong", "apt"]),
+    sido() {
+      console.log(this.$store.state.sido);
+      return this.$store.state.sido;
+    },
+  },
+  created() {
+    this.getSido();
   },
   methods: {
     ...mapActions(
@@ -39,6 +58,11 @@ export default {
       [Constant.GET_DONG],
       [Constant.GET_APT]
     ),
+    gugunList() {
+      console.log(this.sidoCode);
+      this.gugunCode = null;
+      if (this.sidoCode) this.getGugun(this.sidoCode);
+    },
   },
 };
 </script>

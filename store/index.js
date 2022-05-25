@@ -107,10 +107,18 @@ export const mutations = {
 export const actions = {
   //-----notice
   [Constant.GET_NOTICES](context) {
-    http.get("notice").then(({ data }) => context.commit(Constant.SET_NOTICES, { notices: data }));
+    http
+      .get("notice")
+      .then(({ data }) =>
+        context.commit(Constant.SET_NOTICES, { notices: data })
+      );
   },
   [Constant.GET_NOTICE](context, payload) {
-    http.get(`notice/${payload.idx}`).then(({ data }) => context.commit(Constant.SET_NOTICE, { notice: data }));
+    http
+      .get(`notice/${payload.idx}`)
+      .then(({ data }) =>
+        context.commit(Constant.SET_NOTICE, { notice: data })
+      );
   },
   [Constant.MODIFY_NOTICE](context, payload) {
     return http
@@ -159,11 +167,10 @@ export const actions = {
   [Constant.GET_SIDO](context) {
     http.get(`map/sido`).then(({ data }) => {
       context.commit(Constant.SET_SIDO, { sido: data });
-      console.log(data);
     });
   },
-  [Constant.GET_GUGUN](context) {
-    http.get(`map/gugun`).then(({ data }) => {
+  [Constant.GET_GUGUN](context, payload) {
+    http.get(`map/gugun?sido=${payload.sido}`).then(({ data }) => {
       context.commit(Constant.SET_GUGUN, { gugun: data });
     });
   },
@@ -179,10 +186,18 @@ export const actions = {
   },
   //-----favorite
   [Constant.GET_FAVORITE](context) {
-    http.get("favorite").then(({ data }) => context.commit(Constant.SET_FAVORITE, { favorite: data }));
+    http
+      .get("favorite")
+      .then(({ data }) =>
+        context.commit(Constant.SET_FAVORITE, { favorite: data })
+      );
   },
   [Constant.GET_FAVORITE](context, payload) {
-    http.get(`favorite/${payload.idx}`).then(({ data }) => context.commit(Constant.SET_FAVORITE, { favorite: data }));
+    http
+      .get(`favorite/${payload.idx}`)
+      .then(({ data }) =>
+        context.commit(Constant.SET_FAVORITE, { favorite: data })
+      );
   },
   [Constant.DELETE_FAVORITE](context, payload) {
     return http.delete(`favorite/${payload.idx}`).then(() => {
