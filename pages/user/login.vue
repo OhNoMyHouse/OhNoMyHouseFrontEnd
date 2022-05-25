@@ -3,57 +3,52 @@
     <div class="wrapper col-6">
       <b-form @submit="confirm">
         <label for="feedback-user">User ID</label>
-        <b-form-input
-          v-model="userid"
-          id="feedback-user"
-          required
-        ></b-form-input>
-        <b-form-text id="password-help-block" class="m-2">
-          Your user ID must be 5-12 characters long.
-        </b-form-text>
+        <b-form-input v-model="user.userid" id="feedback-user" required></b-form-input>
+        <b-form-text id="password-help-block" class="m-2"> Your user ID must be 5-12 characters long. </b-form-text>
         <br /><br />
 
         <label for="text-password">Password</label>
-        <b-form-input
-          v-model="password"
-          required
-          type="password"
-          id="text-password"
-          aria-describedby="password-help-block"
-        ></b-form-input>
+        <b-form-input v-model="user.userpwd" required type="password" id="text-password" aria-describedby="password-help-block"></b-form-input>
         <b-form-text id="password-help-block" class="m-2">
-          Your password must be 8-20 characters long, contain letters and
-          numbers, and must not contain spaces, special characters, or emoji.
+          Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
         </b-form-text>
         <br /><br />
 
-        <b-button type="button" variant="primary" class="m-1" @click="confirm"
-          >로그인</b-button
-        >
-        <b-button to="/user/regist" type="button" variant="success" class="m-1">
-          회원가입
-        </b-button>
+        <b-button type="button" variant="primary" class="m-1" @click="confirm">로그인</b-button>
+        <b-button to="/user/regist" type="button" variant="success" class="m-1"> 회원가입 </b-button>
       </b-form>
     </div>
   </div>
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
+const store = "memberStore";
 export default {
+  name: "MemberLogin",
   data() {
     return {
-      userid: "",
-      password: "",
+      user: {
+        userid: null,
+        userpwd: null,
+      },
     };
   },
   computed: {
-    validation() {
-      return this.userid.length > 4 && this.userid.length < 13;
-    },
+    ...mapState(store, ["isLogin", "isLoginError"]),
   },
   methods: {
-    confirm() {
-      console.log("로그인 시도");
+    ...mapActions(store, ["userConfirm", "getUserInfo"]),
+    async confirm() {
+      await this.userConfirm(this.user);
+      let token = sessionStorage.getItem("access-token");
+      if (this.isLogin) {
+        await this.getUserInfo(token);
+        this.$router.push({ name: "home" });
+      }
+    },
+    movePage() {
+      this.$router.push({ name: "signup" });
     },
   },
 };

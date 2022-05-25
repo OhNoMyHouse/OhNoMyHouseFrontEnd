@@ -16,7 +16,11 @@ export const state = () => ({
   //-----favorite
   favorites: [],
   favorite: {},
-})
+
+  isLogin: false,
+  isLoginError: false,
+  userInfo: null,
+});
 
 export const getters = {
   //-----notice
@@ -50,7 +54,10 @@ export const getters = {
     console.log("store getters favorites");
     return state.favorites;
   },
-}
+  checkUserInfo: function (state) {
+    return state.userInfo;
+  },
+};
 
 export const mutations = {
   //-----notice
@@ -84,23 +91,26 @@ export const mutations = {
   [Constant.SET_FAVORITE](state, payload) {
     state.favorite = payload.favorite;
   },
-}
+  //-----user
+  SET_IS_LOGIN: (state, isLogin) => {
+    state.isLogin = isLogin;
+  },
+  SET_IS_LOGIN_ERROR: (state, isLoginError) => {
+    state.isLoginError = isLoginError;
+  },
+  SET_USER_INFO: (state, userInfo) => {
+    state.isLogin = true;
+    state.userInfo = userInfo;
+  },
+};
 
 export const actions = {
   //-----notice
   [Constant.GET_NOTICES](context) {
-    http
-      .get("notice")
-      .then(({ data }) =>
-        context.commit(Constant.SET_NOTICES, { notices: data })
-      );
+    http.get("notice").then(({ data }) => context.commit(Constant.SET_NOTICES, { notices: data }));
   },
   [Constant.GET_NOTICE](context, payload) {
-    http
-      .get(`notice/${payload.idx}`)
-      .then(({ data }) =>
-        context.commit(Constant.SET_NOTICE, { notice: data })
-      );
+    http.get(`notice/${payload.idx}`).then(({ data }) => context.commit(Constant.SET_NOTICE, { notice: data }));
   },
   [Constant.MODIFY_NOTICE](context, payload) {
     return http
@@ -130,67 +140,49 @@ export const actions = {
   },
   //------house
   [Constant.GET_HOUSES](context, payload) {
-    http
-      .get(`map/search?word=${payload.word}`)
-      .then(({ data }) => {
-        if (data.length != 0) {
-          context.commit(Constant.SET_HOUSES, { houses: data });
-          console.log("검색 결과 " + data.length + "개의 항목");
-        } else {
-          alert("등록된 정보가 없습니다.");
-        }
-      });
-  },
-  [Constant.GET_HOUSE](context, payload) {
-    http
-      .get(`map/search?word=${payload.word}`)
-      .then(({ data }) => {
+    http.get(`map/search?word=${payload.word}`).then(({ data }) => {
+      if (data.length != 0) {
         context.commit(Constant.SET_HOUSES, { houses: data });
         console.log("검색 결과 " + data.length + "개의 항목");
-      });
+      } else {
+        alert("등록된 정보가 없습니다.");
+      }
+    });
+  },
+  [Constant.GET_HOUSE](context, payload) {
+    http.get(`map/search?word=${payload.word}`).then(({ data }) => {
+      context.commit(Constant.SET_HOUSES, { houses: data });
+      console.log("검색 결과 " + data.length + "개의 항목");
+    });
   },
   //------filter
   [Constant.GET_SIDO](context) {
-    http
-      .get(`map/sido`)
-      .then(({ data }) => {
-        context.commit(Constant.SET_SIDO, { sido: data });
-        console.log(data);
-      });
+    http.get(`map/sido`).then(({ data }) => {
+      context.commit(Constant.SET_SIDO, { sido: data });
+      console.log(data);
+    });
   },
   [Constant.GET_GUGUN](context) {
-    http
-      .get(`map/gugun`)
-      .then(({ data }) => {
-        context.commit(Constant.SET_GUGUN, { gugun: data });
-      });
+    http.get(`map/gugun`).then(({ data }) => {
+      context.commit(Constant.SET_GUGUN, { gugun: data });
+    });
   },
   [Constant.GET_DONG](context) {
-    http
-      .get(`map/dong`)
-      .then(({ data }) => {
-        context.commit(Constant.SET_DONG, { dong: data });
-      });
+    http.get(`map/dong`).then(({ data }) => {
+      context.commit(Constant.SET_DONG, { dong: data });
+    });
   },
   [Constant.GET_APT](context) {
-    http
-      .get(`map/apt`)
-      .then(({ data }) => {
-        context.commit(Constant.SET_APT, { apt: data });
-      });
+    http.get(`map/apt`).then(({ data }) => {
+      context.commit(Constant.SET_APT, { apt: data });
+    });
   },
   //-----favorite
   [Constant.GET_FAVORITE](context) {
-    http
-      .get("favorite")
-      .then(({ data }) =>
-        context.commit(Constant.SET_FAVORITE, { favorite: data })
-      );
+    http.get("favorite").then(({ data }) => context.commit(Constant.SET_FAVORITE, { favorite: data }));
   },
   [Constant.GET_FAVORITE](context, payload) {
-    http
-      .get(`favorite/${payload.idx}`)
-      .then(({ data }) => context.commit(Constant.SET_FAVORITE, { favorite: data }));
+    http.get(`favorite/${payload.idx}`).then(({ data }) => context.commit(Constant.SET_FAVORITE, { favorite: data }));
   },
   [Constant.DELETE_FAVORITE](context, payload) {
     return http.delete(`favorite/${payload.idx}`).then(() => {
@@ -208,6 +200,40 @@ export const actions = {
         console.log("store : favorite 등록에 성공하였습니다.");
       });
   },
-}
+  //-----user
+  async userConfirm({ commit }, user) {
+    await login(
+      user,
+      (response) => {
+        if (response.data.message === "success") {
+          let token = response.data["access-token"];
+          commit("SET_IS_LOGIN", true);
+          commit("SET_IS_LOGIN_ERROR", false);
+          sessionStorage.setItem("access-token", token);
+        } else {
+          commit("SET_IS_LOGIN", false);
+          commit("SET_IS_LOGIN_ERROR", true);
+        }
+      },
+      () => {}
+    );
+  },
+  getUserInfo({ commit }, token) {
+    let decode_token = jwt_decode(token);
+    findById(
+      decode_token.userid,
+      (response) => {
+        if (response.data.message === "success") {
+          commit("SET_USER_INFO", response.data.userInfo);
+        } else {
+          console.log("유저 정보 없음!!");
+        }
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  },
+};
 
 export const modules = {};
