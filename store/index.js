@@ -1,6 +1,7 @@
 import http from "@/api/http.js";
 import Constant from "@/common/Constant.js";
 import { login, findById } from "@/api/member.js";
+import jwt_decode from "jwt-decode";
 
 export const strict = false;
 
@@ -109,18 +110,10 @@ export const mutations = {
 export const actions = {
   //-----notice
   [Constant.GET_NOTICES](context) {
-    http
-      .get("notice")
-      .then(({ data }) =>
-        context.commit(Constant.SET_NOTICES, { notices: data })
-      );
+    http.get("notice").then(({ data }) => context.commit(Constant.SET_NOTICES, { notices: data }));
   },
   [Constant.GET_NOTICE](context, payload) {
-    http
-      .get(`notice/${payload.idx}`)
-      .then(({ data }) =>
-        context.commit(Constant.SET_NOTICE, { notice: data })
-      );
+    http.get(`notice/${payload.idx}`).then(({ data }) => context.commit(Constant.SET_NOTICE, { notice: data }));
   },
   [Constant.MODIFY_NOTICE](context, payload) {
     return http
@@ -182,18 +175,10 @@ export const actions = {
   },
   //-----favorite
   [Constant.GET_FAVORITES](context) {
-    http
-      .get("favorite")
-      .then(({ data }) =>
-        context.commit(Constant.SET_FAVORITES, { favorites: data })
-      );
+    http.get("favorite").then(({ data }) => context.commit(Constant.SET_FAVORITES, { favorites: data }));
   },
   [Constant.GET_FAVORITE](context, payload) {
-    http
-      .get(`favorite/${payload.idx}`)
-      .then(({ data }) =>
-        context.commit(Constant.SET_FAVORITE, { favorite: data })
-      );
+    http.get(`favorite/${payload.idx}`).then(({ data }) => context.commit(Constant.SET_FAVORITE, { favorite: data }));
   },
   [Constant.DELETE_FAVORITE](context, payload) {
     return http.delete(`favorite/${payload}`).then(() => {
@@ -226,7 +211,7 @@ export const actions = {
           commit("SET_IS_LOGIN_ERROR", true);
         }
       },
-      () => { }
+      () => {}
     );
   },
   getUserInfo({ commit }, token) {
