@@ -54,13 +54,13 @@ export default {
         this.house.gugunName +
         " " +
         this.house.dongName;
-      console.log();
+      console.log(ads + " " + this.house.recentPrice);
       this.$store
         .dispatch(Constant.REGIST_FAVORITE, {
           favorite: {
             name: this.house.aptName,
             address: ads,
-            price: this.house.rentPrice,
+            price: this.house.recentPrice,
           },
         })
         .then(() => {

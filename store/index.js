@@ -8,6 +8,7 @@ export const state = () => ({
   notice: {},
   //-----house
   houses: [],
+  house: {},
   //-----filter
   sido: [],
   gugun: [],

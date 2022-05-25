@@ -40,8 +40,16 @@ export default Vue.extend({
   },
   computed: {
     ...mapGetters(["houses", "house"]),
+    test() {
+      return;
+    },
   },
   watch: {
+    houseinfo() {
+      console.log(this.houseinfo);
+      return (this.$store.state.data = this.houseinfo);
+    },
+
     houses(value) {
       this.updateMap(value);
     },
@@ -354,10 +362,9 @@ export default Vue.extend({
         details();
         this.houseinfo = data;
         console.log("마커클릭");
-        // console.log(this.houseinfo);
+
+        console.log();
         // setHouse();
-        this.$store.state.house = data;
-        console.log(this.$store.state.house);
       });
     },
 
@@ -383,6 +390,7 @@ export default Vue.extend({
       // 지도 중심을 이동 시킵니다
       this.map.setCenter(moveLatLon);
     },
+
     setBounds() {
       // LatLngBounds 객체에 추가된 좌표들을 기준으로 지도의 범위를 재설정합니다
       // 이때 지도의 중심좌표와 레벨이 변경될 수 있습니다
