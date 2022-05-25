@@ -1,13 +1,14 @@
 <script>
 import Vue from "vue";
-import Constant from "@/common/Constant.js";
 import HouseList from "@/components/house/HouseList.vue";
+import HouseDetail from "@/components/house/HouseDetail.vue";
 import FilterList from "@/components/filter/FilterList.vue";
 import { mapGetters } from "vuex";
 
 export default Vue.extend({
   components: {
     HouseList,
+    HouseDetail,
     FilterList,
   },
   data: () => ({
@@ -17,7 +18,6 @@ export default Vue.extend({
     ps: null,
     bounds: null,
     detailState: false,
-    houseinfo: {},
     contentNode: null,
     placeOverlay: null,
     currCategory: null,
@@ -39,7 +39,7 @@ export default Vue.extend({
     kakao.maps.load(this.initMap);
   },
   computed: {
-    ...mapGetters(["houses", "house"]),
+    ...mapGetters(["houses"]),
   },
   watch: {
     houses(value) {
@@ -47,9 +47,6 @@ export default Vue.extend({
     },
   },
   methods: {
-    // setHouse() {
-    //   this.$store.commit(Constant.SET_HOUSE, { house: this.house });
-    // },
     initMap() {
       var mapContainer = document.getElementById("map"); // 지도를 표시할 div
       var mapOption = {
@@ -284,7 +281,7 @@ export default Vue.extend({
         this.removeMarker();
       } else {
         this.currCategory = id;
-        this.changeCategoryClass(event);
+        this.changeCategoryClass(event.el);
         this.searchPlaces();
       }
     },
@@ -347,15 +344,9 @@ export default Vue.extend({
       // LatLngBounds 객체에 좌표를 추가합니다
       this.bounds.extend(position);
 
-      var sethouse = this.setHouse;
-
       kakao.maps.event.addListener(marker, "click", () => {
         this.detailStateOn();
-        this.houseinfo = data;
-        console.log("마커클릭");
-
-        console.log();
-        // setHouse();
+        this.$store.state.house = data;
       });
     },
 
@@ -435,7 +426,7 @@ export default Vue.extend({
           bg-variant="white"
           class="sidebar"
         >
-          <house-list />
+          <house-list v-if="this.$store.state.house" />
         </b-sidebar>
       </div>
     </template>
@@ -443,7 +434,7 @@ export default Vue.extend({
     <div class="map_wrap">
       <div
         id="map"
-        style="width: calc(100vw - 452px); height: calc(100vh - 125px)"
+        style="width: calc(100vw - 452px); height: calc(100vh - 187px)"
       ></div>
       <ul id="category">
         <li
@@ -504,7 +495,7 @@ export default Vue.extend({
       shadow
       bg-variant="white"
     >
-      <div v-show="detailState">{{ houseinfo }}</div>
+      <house-detail />
     </b-sidebar>
   </aside>
 </template>
@@ -598,7 +589,8 @@ aside.content#home {
 #sidebar-right,
 #sidebar-right-detail {
   width: 380px;
-  top: 123px;
+  // 123 62
+  top: 184px;
   height: calc(100vh - 125px);
 }
 

@@ -159,12 +159,6 @@ export const actions = {
       }
     });
   },
-  [Constant.GET_HOUSE](context, payload) {
-    http.get(`map/search?word=${payload.word}`).then(({ data }) => {
-      context.commit(Constant.SET_HOUSES, { houses: data });
-      console.log("검색 결과 " + data.length + "개의 항목");
-    });
-  },
   //------filter
   [Constant.GET_SIDO](context) {
     http.get(`map/sido`).then(({ data }) => {
