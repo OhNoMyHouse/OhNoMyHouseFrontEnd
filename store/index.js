@@ -1,12 +1,15 @@
 import http from "@/api/http.js";
 import Constant from "@/common/Constant.js";
 
+export const strict = false;
+
 export const state = () => ({
   notices: [],
   notice: {},
   //-----house
   houses: [],
-})
+  house: {},
+});
 
 export const getters = {
   notices(state) {
@@ -18,7 +21,11 @@ export const getters = {
     return state.houses;
   },
   //-----house
-}
+  house(state) {
+    console.log("store getters house.");
+    return state.house;
+  },
+};
 
 export const mutations = {
   //-----notice
@@ -32,7 +39,10 @@ export const mutations = {
   [Constant.SET_HOUSES](state, payload) {
     state.houses = payload.houses;
   },
-}
+  [Constant.SET_HOUSE](state, payload) {
+    state.house = payload.house;
+  },
+};
 
 export const actions = {
   //-----notice
@@ -46,7 +56,9 @@ export const actions = {
   [Constant.GET_NOTICE](context, payload) {
     http
       .get(`notice/${payload.idx}`)
-      .then(({ data }) => context.commit(Constant.SET_NOTICE, { notice: data }));
+      .then(({ data }) =>
+        context.commit(Constant.SET_NOTICE, { notice: data })
+      );
   },
   [Constant.MODIFY_NOTICE](context, payload) {
     return http
@@ -76,23 +88,19 @@ export const actions = {
   },
   //------house
   [Constant.GET_HOUSES](context, payload) {
-    http
-      .get(`map/search?word=${payload.word}`)
-      .then(({ data }) => {
-        if (data.length != 0) {
-          context.commit(Constant.SET_HOUSES, { houses: data });
-          console.log("검색 결과 " + data.length + "개의 항목");
-        }
-      });
-  },
-  [Constant.GET_HOUSE](context, payload) {
-    http
-      .get(`map/search?word=${payload.word}`)
-      .then(({ data }) => {
+    http.get(`map/search?word=${payload.word}`).then(({ data }) => {
+      if (data.length != 0) {
         context.commit(Constant.SET_HOUSES, { houses: data });
         console.log("검색 결과 " + data.length + "개의 항목");
-      });
+      }
+    });
   },
-}
+  [Constant.GET_HOUSE](context, payload) {
+    http.get(`map/search?word=${payload.word}`).then(({ data }) => {
+      context.commit(Constant.SET_HOUSE, { house: data });
+      console.log("검색 결과 " + data);
+    });
+  },
+};
 
-export const modules = {}
+export const modules = {};

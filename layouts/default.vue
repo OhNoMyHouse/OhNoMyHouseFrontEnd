@@ -60,6 +60,7 @@ export default Vue.extend({
             background: #1a73e8;
             border: 1px solid transparent;
             margin-left: 8px;
+            height: 35px;
           "
           >로그인</b-button
         >
