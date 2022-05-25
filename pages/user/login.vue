@@ -15,7 +15,7 @@
 
         <label for="text-password">Password</label>
         <b-form-input
-          v-model="user.userpwd"
+          v-model="user.password"
           required
           type="password"
           id="text-password"
@@ -47,7 +47,7 @@ export default {
     return {
       user: {
         userid: null,
-        userpwd: null,
+        password: null,
       },
     };
   },
@@ -61,7 +61,7 @@ export default {
       let token = sessionStorage.getItem("access-token");
       if (this.isLogin) {
         await this.getUserInfo(token);
-        this.$router.push({ name: "home" });
+        this.$router.push({ path: "/" });
       }
     },
     movePage() {
