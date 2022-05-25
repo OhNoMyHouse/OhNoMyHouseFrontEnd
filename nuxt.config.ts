@@ -10,14 +10,14 @@ const Config: NuxtConfig = {
   loading: { color: "#d93025" },
 
   head: {
-    title: "YouTube Concept",
+    title: "OhNoMyHouse",
     meta: [
       { charset: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       {
         hid: "description",
         name: "description",
-        content: "A modern YouTube concept",
+        content: "dedicated to the Homeless",
       },
     ],
 

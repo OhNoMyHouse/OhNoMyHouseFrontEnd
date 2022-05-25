@@ -4,7 +4,7 @@
       <b-form @submit="confirm">
         <label for="feedback-user">User ID</label>
         <b-form-input
-          v-model="userid"
+          v-model="user.userid"
           id="feedback-user"
           required
         ></b-form-input>
@@ -15,7 +15,7 @@
 
         <label for="text-password">Password</label>
         <b-form-input
-          v-model="password"
+          v-model="user.userpwd"
           required
           type="password"
           id="text-password"
@@ -39,21 +39,33 @@
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
+
 export default {
+  name: "MemberLogin",
   data() {
     return {
-      userid: "",
-      password: "",
+      user: {
+        userid: null,
+        userpwd: null,
+      },
     };
   },
   computed: {
-    validation() {
-      return this.userid.length > 4 && this.userid.length < 13;
-    },
+    ...mapState(["isLogin", "isLoginError"]),
   },
   methods: {
-    confirm() {
-      console.log("로그인 시도");
+    ...mapActions(["userConfirm", "getUserInfo"]),
+    async confirm() {
+      await this.userConfirm(this.user);
+      let token = sessionStorage.getItem("access-token");
+      if (this.isLogin) {
+        await this.getUserInfo(token);
+        this.$router.push({ name: "home" });
+      }
+    },
+    movePage() {
+      this.$router.push({ name: "signup" });
     },
   },
 };

@@ -6,3 +6,15 @@ export default axios.create({
     "Content-Type": "application/json",
   },
 });
+
+function apiInstance() {
+  const instance = axios.create({
+    baseURL: "http://localhost:8080/",
+    headers: {
+      "Content-type": "application/json",
+    },
+  });
+  return instance;
+}
+
+export { apiInstance };

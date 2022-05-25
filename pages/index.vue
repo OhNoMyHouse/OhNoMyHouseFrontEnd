@@ -355,11 +355,10 @@ export default Vue.extend({
       // LatLngBounds 객체에 좌표를 추가합니다
       this.bounds.extend(position);
 
-      var details = this.detailStateOn;
       var sethouse = this.setHouse;
 
-      kakao.maps.event.addListener(marker, "click", function () {
-        details();
+      kakao.maps.event.addListener(marker, "click", () => {
+        this.detailStateOn();
         this.houseinfo = data;
         console.log("마커클릭");
 

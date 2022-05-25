@@ -1,20 +1,25 @@
 <template>
   <aside class="filter">
-    <select class="form-control" id="sido" @click="getSido()">
+    <select class="form-control" id="sido" @change="gugunList">
       <option value="*">시/도</option>
-      <option v-for="(ss, index) in sido" value="ss.sidoCode" :key="index">
+      <option v-for="(ss, index) in sido" :value="ss.sidoCode" :key="index">
         {{ ss.sidoName }}
       </option>
     </select>
-    <select class="form-control" id="gugun" @click="getGugun()">
+    <!-- <b-form-select
+      v-model="sidoCode"
+      :options="sido"
+      @change="gugunList"
+    ></b-form-select> -->
+    <select class="form-control" id="gugun">
       <option value="*">구/군</option>
-      <option v-for="(gg, index) in gugun" value="gg.gugunCode" :key="index">
+      <option v-for="(gg, index) in gugun" :value="gg.gugunCode" :key="index">
         {{ gg.gugunName }}
       </option>
     </select>
     <select class="form-control" id="dong" @click="getDong()">
       <option value="*">동</option>
-      <option v-for="(dd, index) in dong" value="sid.dongCode" :key="index">
+      <option v-for="(dd, index) in dong" :value="sid.dongCode" :key="index">
         {{ dd.sidoName }}
       </option>
     </select>
@@ -23,22 +28,38 @@
 
 <script>
 import Constant from "@/common/Constant.js";
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapActions, mapMutations } from "vuex";
 
 export default {
   data() {
-    return {};
+    return {
+      sidoCode: null,
+      gugunCode: null,
+    };
   },
   computed: {
     ...mapGetters(["sido", "gugun", "dong", "apt"]),
+    sido() {
+      console.log(this.$store.state.sido);
+      return this.$store.state.sido;
+    },
+  },
+  created() {
+    this.getSido();
   },
   methods: {
-    ...mapActions(
-      [Constant.GET_SIDO],
-      [Constant.GET_GUGUN],
-      [Constant.GET_DONG],
-      [Constant.GET_APT]
-    ),
+    ...mapActions([
+      Constant.GET_SIDO,
+      Constant.GET_GUGUN,
+      Constant.GET_DONG,
+      Constant.GET_APT,
+    ]),
+    gugunList(event) {
+      console.log(event.target.value);
+      console.log(this);
+      this.getGugun({ sido: event.target.value });
+      // this.$store.dispatch(Constant.GET_GUGUN, { sido: event.target.value });
+    },
   },
 };
 </script>
