@@ -87,8 +87,8 @@ export const mutations = {
     state.apt = payload.apt;
   },
   //-----favorite
-  [Constant.SET_FAVORITE](state, payload) {
-    state.favorite = payload.favorite;
+  [Constant.SET_FAVORITES](state, payload) {
+    state.favorites = payload.favorites;
   },
   [Constant.SET_FAVORITE](state, payload) {
     state.favorite = payload.favorite;
@@ -176,22 +176,22 @@ export const actions = {
       context.commit(Constant.SET_GUGUN, { gugun: data });
     });
   },
-  [Constant.GET_DONG](context) {
-    http.get(`map/dong`).then(({ data }) => {
+  [Constant.GET_DONG](context, payload) {
+    http.get(`map/dong?gugun=${payload.gugun}`).then(({ data }) => {
       context.commit(Constant.SET_DONG, { dong: data });
     });
   },
-  [Constant.GET_APT](context) {
-    http.get(`map/apt`).then(({ data }) => {
+  [Constant.GET_APT](context, payload) {
+    http.get(`map/apt?dong=${payload.dong}`).then(({ data }) => {
       context.commit(Constant.SET_APT, { apt: data });
     });
   },
   //-----favorite
-  [Constant.GET_FAVORITE](context) {
+  [Constant.GET_FAVORITES](context) {
     http
       .get("favorite")
       .then(({ data }) =>
-        context.commit(Constant.SET_FAVORITE, { favorite: data })
+        context.commit(Constant.SET_FAVORITES, { favorites: data })
       );
   },
   [Constant.GET_FAVORITE](context, payload) {
@@ -202,7 +202,7 @@ export const actions = {
       );
   },
   [Constant.DELETE_FAVORITE](context, payload) {
-    return http.delete(`favorite/${payload.idx}`).then(() => {
+    return http.delete(`favorite/${payload}`).then(() => {
       console.log("store : favorite 삭제에 성공하였습니다.");
     });
   },
@@ -232,7 +232,7 @@ export const actions = {
           commit("SET_IS_LOGIN_ERROR", true);
         }
       },
-      () => {}
+      () => { }
     );
   },
   getUserInfo({ commit }, token) {

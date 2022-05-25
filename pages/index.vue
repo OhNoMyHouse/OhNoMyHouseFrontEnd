@@ -40,16 +40,8 @@ export default Vue.extend({
   },
   computed: {
     ...mapGetters(["houses", "house"]),
-    test() {
-      return;
-    },
   },
   watch: {
-    houseinfo() {
-      console.log(this.houseinfo);
-      return (this.$store.state.data = this.houseinfo);
-    },
-
     houses(value) {
       this.updateMap(value);
     },

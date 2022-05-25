@@ -1,41 +1,83 @@
 <script lang="ts">
 import Vue from "vue";
+import Constant from "@/common/Constant";
+import { mapGetters } from "vuex";
 
 export default Vue.extend({
-  // data: () => ({ videos }),
+  data: () => ({
+    favoriteState: true,
+    key: null,
+    value: null,
+  }),
+
+  methods: {
+    setState(envent: any) {
+      this.favoriteState = !this.favoriteState;
+      console.log(envent);
+      if (this.favoriteState) {
+        this.getFavorites();
+      } else {
+        this.deleteFavorites(envent);
+      }
+    },
+    getFavorites() {
+      this.$store.dispatch(Constant.GET_FAVORITES);
+    },
+    deleteFavorites(envent: any) {
+      this.$store.dispatch(Constant.DELETE_FAVORITE, envent).then(() => {
+        alert("삭제에 성공하였습니다.");
+        this.getFavorites();
+      });
+    },
+  },
+  computed: {
+    favorites() {
+      return this.$store.state.favorites;
+    },
+  },
+  created() {
+    console.log("FavoriteList Comp.");
+    this.getFavorites();
+  },
 });
 </script>
 
 <template>
   <aside class="content" id="library">
-    <section class="history container">
-      <NuxtLink to="/library/history"
-        ><Icon name="history" />
-        <h1>History</h1></NuxtLink
-      >
-    </section>
-
     <section class="container">
-      <NuxtLink to="/library/playlist"
-        ><Icon name="playlist" />
-        <h1>Playlists</h1></NuxtLink
+      <h1>Favorite List</h1>
+      <b-card
+        v-for="favorite in favorites"
+        :key="favorite.idx"
+        :house="favorite"
+        no-body
+        class="overflow-hidden"
+        style="max-width: 800px"
+        :value="favorite.idx"
       >
-
-      <p>Playlists you create or save will show up here.</p>
-    </section>
-
-    <section class="container">
-      <NuxtLink to="/library/playlist?list=WL"
-        ><Icon name="watch-later" />
-        <h1>Watch later</h1></NuxtLink
-      >
-    </section>
-
-    <section class="container">
-      <NuxtLink to="/library/playlist?list=LV"
-        ><Icon name="like" />
-        <h1>Liked videos</h1></NuxtLink
-      >
+        <b-row no-gutters>
+          <b-col md="4">
+            <b-card-img
+              src="@/assets/img/house.png"
+              style="width: 120px; height: 100px"
+              alt="Image"
+              class="rounded-0"
+            ></b-card-img>
+          </b-col>
+          <b-col md="8">
+            <b-card-body>
+              <b-card-text style="font-size: small">
+                {{ favorite.name }} <br />
+                {{ favorite.address }}<br />
+                실거래가 : {{ favorite.price }} 만원 <br />
+                <button @click="setState(favorite.idx)">
+                  {{ favoriteState ? "★" : "☆" }}
+                </button>
+              </b-card-text>
+            </b-card-body>
+          </b-col>
+        </b-row>
+      </b-card>
     </section>
   </aside>
 </template>
@@ -57,12 +99,6 @@ aside.content#library {
       h1 {
         font-size: 20px;
         font-weight: 500;
-      }
-    }
-
-    &:not(.history) :is(section.videos, p) {
-      @include breakpoint {
-        display: none;
       }
     }
   }

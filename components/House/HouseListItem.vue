@@ -17,7 +17,9 @@
               {{ house.dongName }} <br />
               {{ house.aptName }}<br />
               실거래가 : {{ house.recentPrice }} 만원 <br />
-              <button @click="addFavorite">☆</button>
+              <button @click="setState">
+                {{ favoriteState ? "★" : "☆" }}
+              </button>
             </b-card-text>
           </b-card-body>
         </b-col>
@@ -47,6 +49,15 @@ export default {
     colorChange(flag) {
       this.isColor = flag;
     },
+    setState(envent) {
+      this.favoriteState = !this.favoriteState;
+      console.log(envent);
+      if (this.favoriteState) {
+        this.getFavorites();
+      } else {
+        this.deleteFavorites(envent);
+      }
+    },
     addFavorite() {
       const ads =
         this.house.sidoName.toString().substr(0, 2) +
@@ -66,6 +77,12 @@ export default {
         .then(() => {
           alert("favorite 등록에 성공하였습니다.");
         });
+    },
+    deleteFavorites(envent) {
+      this.$store.dispatch(Constant.DELETE_FAVORITE, envent).then(() => {
+        alert("삭제에 성공하였습니다.");
+        this.getFavorites();
+      });
     },
   },
 
