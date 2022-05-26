@@ -2,12 +2,26 @@
 import Vue from "vue";
 import Constant from "@/common/Constant.js";
 import { getReadableDate } from "@/assets/utils";
+import { mapActions } from "vuex";
 
 export default Vue.extend({
   methods: {
     getReadableDate,
     getNotices() {
       this.$store.dispatch(Constant.GET_NOTICES);
+    },
+    ...mapActions(["getUserInfo"]),
+    async onlyAuthUser() {
+      let token = sessionStorage.getItem("access-token");
+      if (this.$store.getters.checkUserInfo == null && token) {
+        await this.getUserInfo(token);
+      }
+      if (this.$store.getters.checkUserInfo !== "admin") {
+        alert("관리자만 접근이 가능합니다..");
+        this.$router.push({ path: `/notice` });
+      } else {
+        this.$router.push({ path: `/notice/regist` });
+      }
     },
   },
   data: () => ({
@@ -75,25 +89,12 @@ export default Vue.extend({
     <div class="container">
       <div>
         <h1 style="margin-top: 100px">Notice</h1>
-        <b-button variant="outline-primary"
-          ><router-link :to="{ path: `/notice/regist` }"
-            >추가</router-link
-          ></b-button
-        >
+        <b-button variant="outline-primary" @click="onlyAuthUser()">추가</b-button>
       </div>
       <div v-if="notices.length > 0">
         <b-row>
           <b-col lg="12">
-            <b-table
-              striped
-              bordered
-              hover
-              dark
-              fixed
-              outlined
-              :items="notices"
-              :fields="fields"
-            >
+            <b-table striped bordered hover dark fixed outlined :items="notices" :fields="fields">
               <template #cell(index)="data">
                 {{ data.index + 1 }}
               </template>
