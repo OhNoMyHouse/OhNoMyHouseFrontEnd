@@ -3,6 +3,7 @@ import Vue from "vue";
 import HouseList from "@/components/house/HouseList.vue";
 import HouseDetail from "@/components/house/HouseDetail.vue";
 import FilterList from "@/components/filter/FilterList.vue";
+import SearchList from "@/components/filter/SearchList.vue";
 import { mapGetters } from "vuex";
 
 export default Vue.extend({
@@ -10,6 +11,7 @@ export default Vue.extend({
     HouseList,
     HouseDetail,
     FilterList,
+    SearchList,
   },
   data: () => ({
     map: null,
@@ -500,37 +502,17 @@ aside.content#home {
           border-color: var(--bg-red);
         }
       }
+    }
 
-      aside {
-        &.track {
-          overflow-x: auto;
-          padding: 12px 24px;
-          padding-right: 124px;
-          @include flex(center, $gap: 8px);
-          @include breakpoint {
-            padding: 12px;
-          }
-
-          &::-webkit-scrollbar {
-            display: none;
-          }
-        }
-
-        &.controls {
-          z-index: 1;
-          height: 100%;
-          position: absolute;
-          top: 0;
-          right: 24px;
-          @include flex(center, $gap: 4px);
-          @include breakpoint {
-            display: none;
-          }
-
-          button {
-            padding: 6px;
-          }
-        }
+    &.controls {
+      z-index: 1;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      right: 24px;
+      @include flex(center, $gap: 4px);
+      @include breakpoint {
+        display: none;
       }
 
       div.overlay-start {
@@ -543,18 +525,28 @@ aside.content#home {
           width: 12px;
         }
       }
+    }
+    div.overlay-start {
+      width: 24px;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      background: linear-gradient(to right, var(--bg), transparent);
+      @include breakpoint {
+        width: 12px;
+      }
+    }
 
-      div.overlay-end {
-        width: 124px;
-        height: 100%;
-        position: absolute;
-        right: 0;
-        top: 0;
-        // background: linear-gradient(to right, transparent, var(--bg) 16% 100%);
-        @include breakpoint {
-          width: 12px;
-          // background: linear-gradient(to right, transparent, var(--bg));
-        }
+    div.overlay-end {
+      width: 124px;
+      height: 100%;
+      position: absolute;
+      right: 0;
+      top: 0;
+      // background: linear-gradient(to right, transparent, var(--bg) 16% 100%);
+      @include breakpoint {
+        width: 12px;
+        // background: linear-gradient(to right, transparent, var(--bg));
       }
     }
   }
