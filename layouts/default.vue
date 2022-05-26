@@ -1,7 +1,7 @@
 <script lang="ts">
 import Vue from "vue";
 import Constant from "@/common/Constant.js";
-import { mapState, mapMutations } from "vuex";
+import { mapState, mapMutations, mapActions } from "vuex";
 
 export default Vue.extend({
   name: "DefaultLayout",
@@ -28,6 +28,31 @@ export default Vue.extend({
       this.SET_USER_INFO(null);
       sessionStorage.removeItem("access-token");
       if (this.$route.path != "/") this.$router.push({ path: "/" });
+    },
+    ...mapActions(["getUserInfo"]),
+    async onlyUserNotice() {
+      let token = sessionStorage.getItem("access-token");
+      if (this.$store.getters.checkUserInfo == null && token) {
+        await this.getUserInfo(token);
+      }
+      if (this.$store.getters.checkUserInfo === null) {
+        alert("로그인이 필요한 페이지입니다..");
+        this.$router.push({ path: `/user/login` });
+      } else {
+        this.$router.push({ path: `/notice` });
+      }
+    },
+    async onlyUserFav() {
+      let token = sessionStorage.getItem("access-token");
+      if (this.$store.getters.checkUserInfo == null && token) {
+        await this.getUserInfo(token);
+      }
+      if (this.$store.getters.checkUserInfo === null) {
+        alert("로그인이 필요한 페이지입니다..");
+        this.$router.push({ path: `/user/login` });
+      } else {
+        this.$router.push({ path: `/favorite` });
+      }
     },
   },
 });
@@ -98,11 +123,11 @@ export default Vue.extend({
             ><Icon name="home" />
             <h6>Home</h6></NuxtLink
           >
-          <NuxtLink to="/notice"
+          <NuxtLink to="/notice" @click.native="onlyUserNotice()"
             ><Icon name="explore" />
             <h6>Notice</h6></NuxtLink
           >
-          <NuxtLink to="/favorite"
+          <NuxtLink to="/favorite" @click.native="onlyUserFav()"
             ><Icon name="library" />
             <h6>Favorite</h6></NuxtLink
           >

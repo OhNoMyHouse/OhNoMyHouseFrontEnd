@@ -82,16 +82,8 @@ export default Vue.extend({
 
       // 커스텀 오버레이의 컨텐츠 노드에 mousedown, touchstart 이벤트가 발생했을때
       // 지도 객체에 이벤트가 전달되지 않도록 이벤트 핸들러로 kakao.maps.event.preventMap 메소드를 등록합니다
-      this.addEventHandle(
-        this.contentNode,
-        "mousedown",
-        kakao.maps.event.preventMap
-      );
-      this.addEventHandle(
-        this.contentNode,
-        "touchstart",
-        kakao.maps.event.preventMap
-      );
+      this.addEventHandle(this.contentNode, "mousedown", kakao.maps.event.preventMap);
+      this.addEventHandle(this.contentNode, "touchstart", kakao.maps.event.preventMap);
 
       // 커스텀 오버레이 컨텐츠를 설정합니다
       this.placeOverlay.setContent(this.contentNode);
@@ -157,16 +149,11 @@ export default Vue.extend({
     displayPlaces(places) {
       // 몇번째 카테고리가 선택되어 있는지 얻어옵니다
       // 이 순서는 스프라이트 이미지에서의 위치를 계산하는데 사용됩니다
-      var order = document
-        .getElementById(this.currCategory)
-        .getAttribute("data-order");
+      var order = document.getElementById(this.currCategory).getAttribute("data-order");
 
       for (var i = 0; i < places.length; i++) {
         // 마커를 생성하고 지도에 표시합니다
-        var marker = this.addCategoryMarker(
-          new kakao.maps.LatLng(places[i].y, places[i].x),
-          order
-        );
+        var marker = this.addCategoryMarker(new kakao.maps.LatLng(places[i].y, places[i].x), order);
 
         // 마커와 검색결과 항목을 클릭 했을 때
         // 장소정보를 표출하도록 클릭 이벤트를 등록합니다
@@ -179,19 +166,14 @@ export default Vue.extend({
     },
     // 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
     addCategoryMarker(position, order) {
-      var imageSrc =
-          "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_category.png", // 마커 이미지 url, 스프라이트 이미지를 씁니다
+      var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_category.png", // 마커 이미지 url, 스프라이트 이미지를 씁니다
         imageSize = new kakao.maps.Size(27, 28), // 마커 이미지의 크기
         imgOptions = {
           spriteSize: new kakao.maps.Size(72, 208), // 스프라이트 이미지의 크기
           spriteOrigin: new kakao.maps.Point(46, order * 36), // 스프라이트 이미지 중 사용할 영역의 좌상단 좌표
           offset: new kakao.maps.Point(11, 28), // 마커 좌표에 일치시킬 이미지 내에서의 좌표
         },
-        markerImage = new kakao.maps.MarkerImage(
-          imageSrc,
-          imageSize,
-          imgOptions
-        ),
+        markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imgOptions),
         marker = new kakao.maps.Marker({
           position: position, // 마커의 위치
           image: markerImage,
@@ -236,20 +218,10 @@ export default Vue.extend({
           place.address_name +
           ")</span>";
       } else {
-        content +=
-          '    <span title="' +
-          place.address_name +
-          '">' +
-          place.address_name +
-          "</span>";
+        content += '    <span title="' + place.address_name + '">' + place.address_name + "</span>";
       }
 
-      content +=
-        '    <span class="tel">' +
-        place.phone +
-        "</span>" +
-        "</div>" +
-        '<div class="after"></div>';
+      content += '    <span class="tel">' + place.phone + "</span>" + "</div>" + '<div class="after"></div>';
 
       this.contentNode.innerHTML = content;
       this.placeOverlay.setPosition(new kakao.maps.LatLng(place.y, place.x));
@@ -389,12 +361,7 @@ export default Vue.extend({
       <div class="overlay-start" />
       <filter-list />
       <aside class="track" ref="tags">
-        <button
-          @click="activeTag = tag"
-          :class="{ active: activeTag === tag }"
-          v-for="tag in tags"
-          :key="tag.label"
-        >
+        <button @click="activeTag = tag" :class="{ active: activeTag === tag }" v-for="tag in tags" :key="tag.label">
           {{ tag }}
         </button>
       </aside>
@@ -405,97 +372,48 @@ export default Vue.extend({
         <button @click="$refs.tags.scrollLeft += 120">
           <Icon name="chevron-right" />
         </button>
-        <b-button
-          v-b-toggle.sidebar-right
-          variant="black"
-          style="padding: 5px; display: none"
-          >거래 정보</b-button
-        >
+        <b-button v-b-toggle.sidebar-right variant="black" style="padding: 5px; display: none">거래 정보</b-button>
       </aside>
       <div class="overlay-end" />
     </section>
     <template>
       <div>
-        <b-sidebar
-          id="sidebar-right"
-          no-close-on-esc
-          no-header
-          right
-          shadow
-          visible
-          aria-expanded="true"
-          bg-variant="white"
-          class="sidebar"
-        >
+        <b-sidebar id="sidebar-right" no-close-on-esc no-header right shadow visible aria-expanded="true" bg-variant="white" class="sidebar">
           <house-list v-if="this.$store.state.house" />
         </b-sidebar>
       </div>
     </template>
     <!-- height: calc(100vh - var(--nav-height)) -->
     <div class="map_wrap">
-      <div
-        id="map"
-        style="width: calc(100vw - 452px); height: calc(100vh - 187px)"
-      ></div>
+      <div id="map" style="width: calc(100vw - 452px); height: calc(100vh - 187px)"></div>
       <ul id="category">
-        <li
-          id="BK9"
-          data-order="0"
-          @click="onClickCategory('BK9', 'category_bg bank', $event)"
-        >
+        <li id="BK9" data-order="0" @click="onClickCategory('BK9', 'category_bg bank', $event)">
           <span class="category_bg bank"></span>
           은행
         </li>
-        <li
-          id="MT1"
-          data-order="1"
-          @click="onClickCategory('MT1', 'category_bg mart', $event)"
-        >
+        <li id="MT1" data-order="1" @click="onClickCategory('MT1', 'category_bg mart', $event)">
           <span class="category_bg mart"></span>
           마트
         </li>
-        <li
-          id="PM9"
-          data-order="2"
-          @click="onClickCategory('PM9', 'category_bg pharmacy', $event)"
-        >
+        <li id="PM9" data-order="2" @click="onClickCategory('PM9', 'category_bg pharmacy', $event)">
           <span class="category_bg pharmacy"></span>
           약국
         </li>
-        <li
-          id="OL7"
-          data-order="3"
-          @click="onClickCategory('OL7', 'category_bg oil', $event)"
-        >
+        <li id="OL7" data-order="3" @click="onClickCategory('OL7', 'category_bg oil', $event)">
           <span class="category_bg oil"></span>
           주유소
         </li>
-        <li
-          id="CE7"
-          data-order="4"
-          @click="onClickCategory('CE7', 'category_bg cafe', $event)"
-        >
+        <li id="CE7" data-order="4" @click="onClickCategory('CE7', 'category_bg cafe', $event)">
           <span class="category_bg cafe"></span>
           카페
         </li>
-        <li
-          id="CS2"
-          data-order="5"
-          @click="onClickCategory('CS2', 'category_bg store', $event)"
-        >
+        <li id="CS2" data-order="5" @click="onClickCategory('CS2', 'category_bg store', $event)">
           <span class="category_bg store"></span>
           편의점
         </li>
       </ul>
     </div>
-    <b-sidebar
-      id="sidebar-right-detail"
-      v-model="detailState"
-      title=""
-      right
-      shadow
-      bg-variant="white"
-    >
+    <b-sidebar id="sidebar-right-detail" v-model="detailState" title="" right shadow bg-variant="white">
       <house-detail />
     </b-sidebar>
   </aside>
@@ -644,8 +562,7 @@ aside.content#home {
   height: 28px;
 }
 #category li .category_bg {
-  background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_category.png)
-    no-repeat;
+  background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_category.png) no-repeat;
 }
 #category li .bank {
   background-position: -10px 0;
@@ -722,9 +639,7 @@ aside.content#home {
   padding: 10px;
   color: #fff;
   background: #d95050;
-  background: #d95050
-    url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png)
-    no-repeat right 14px center;
+  background: #d95050 url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png) no-repeat right 14px center;
 }
 .placeinfo .tel {
   color: #0f7833;

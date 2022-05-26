@@ -4,11 +4,12 @@
       <b-row no-gutters>
         <b-col md="4">
           <b-card-img
-            src="@/assets/img/house.png"
+            :src="require(`assets/img/${num}.jpg`)"
             style="width: 120px; height: 100px"
             alt="Image"
             class="rounded-0"
-          ></b-card-img>
+          >
+          </b-card-img>
         </b-col>
         <b-col md="8">
           <b-card-body>
@@ -34,6 +35,13 @@
                   </button>
                 </div>
               </div>
+              {{ house.sidoName | sido }} {{ house.gugunName }}
+              {{ house.dongName }} <br />
+              {{ house.aptName }}<br />
+              실거래가 : {{ house.recentPrice }} 만원 <br />
+              <button @click="setState(house.aptName)">
+                {{ favoriteState ? "★" : "☆" }}
+              </button>
             </b-card-text>
           </b-card-body>
         </b-col>
@@ -45,7 +53,6 @@
 <script>
 import Constant from "@/common/Constant";
 import { mapGetters } from "vuex";
-
 export default {
   name: "HouseListItem",
   data() {
@@ -53,6 +60,7 @@ export default {
       isColor: false,
       activeTag: "All",
       favoriteState: false,
+      num: Math.ceil(Math.random() * 1000),
     };
   },
   props: {
