@@ -2,7 +2,7 @@
 import Vue from "vue";
 import Constant from "@/common/Constant.js";
 import { getReadableDate } from "@/assets/utils";
-import { mapActions } from "vuex";
+import { mapState, mapActions } from "vuex";
 
 export default Vue.extend({
   methods: {
@@ -10,13 +10,10 @@ export default Vue.extend({
     getNotices() {
       this.$store.dispatch(Constant.GET_NOTICES);
     },
+    ...mapState(["userInfo"]),
     ...mapActions(["getUserInfo"]),
     async onlyAuthUser() {
-      let token = sessionStorage.getItem("access-token");
-      if (this.$store.getters.checkUserInfo == null && token) {
-        await this.getUserInfo(token);
-      }
-      if (this.$store.getters.checkUserInfo !== "admin") {
+      if (this.userInfo().name !== "admin") {
         alert("관리자만 접근이 가능합니다..");
         this.$router.push({ path: `/notice` });
       } else {
@@ -34,6 +31,9 @@ export default Vue.extend({
   computed: {
     notices() {
       return this.$store.state.notices;
+    },
+    user() {
+      return this.$store.state.userInfo;
     },
   },
   created() {
