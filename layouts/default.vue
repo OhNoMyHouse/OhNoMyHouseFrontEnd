@@ -116,6 +116,7 @@ export default Vue.extend({
           ? { sidebar: sidebarCollapsed }
           : { compact: sidebarCollapsed }
       "
+      style="background: rgba(188, 188, 188, 0.3)"
     >
       <aside class="sidebar">
         <aside class="links">
@@ -157,7 +158,7 @@ div {
     position: sticky;
     top: 0;
     border-bottom: 1px solid var(--gray);
-    background-color: yellow;
+    background-color: rgba($color: #bcbcbc, $alpha: 0.3);
     @include flex(center, space-between, $gap: 16px);
 
     aside {
@@ -183,7 +184,8 @@ div {
         width: 640px;
         padding: 4px 10px;
         border-radius: 8px;
-        background: var(--gray);
+        // background: var(--gray);
+        background: #ffffff;
         transition: 150ms background, 150ms box-shadow;
         @include flex(center);
         @include breakpoint {
@@ -245,7 +247,7 @@ div {
         width: 256px;
         flex-shrink: 0;
         overflow-y: auto;
-        background: var(--bg);
+        // background: var(--bg);
         border-right: 1px solid var(--gray);
         height: calc(100vh - var(--nav-height));
         position: sticky;
@@ -259,7 +261,7 @@ div {
         }
 
         aside {
-          background-color: yellow;
+          // background-color: yellow;
           padding: 12px 12px 12px 0;
           @include flex($dir: column);
           @include breakpoint {

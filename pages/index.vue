@@ -23,19 +23,6 @@ export default Vue.extend({
     contentNode: null,
     placeOverlay: null,
     currCategory: null,
-    // videos,
-    activeTag: "All",
-    tags: [
-      // { key: "CS2", label: "편의점" },
-      "All",
-      "Trending",
-      "Music",
-      "Gaming",
-      "Sports",
-      "Live",
-      "News",
-      "Piano",
-    ],
   }),
   mounted() {
     kakao.maps.load(this.initMap);
@@ -390,15 +377,13 @@ export default Vue.extend({
     <section class="tags">
       <div class="overlay-start" />
       <filter-list />
-      <search-list />
-      <aside class="controls">
-        <b-button
-          v-b-toggle.sidebar-right
-          variant="black"
-          style="padding: 5px; display: none"
-          >거래 정보</b-button
-        >
-      </aside>
+
+      <b-button
+        v-b-toggle.sidebar-right
+        variant="black"
+        style="padding: 5px; display: none"
+        >거래 정보</b-button
+      >
       <div class="overlay-end" />
     </section>
     <template>
@@ -411,7 +396,6 @@ export default Vue.extend({
           shadow
           visible
           aria-expanded="true"
-          bg-variant="white"
           class="sidebar"
         >
           <house-list v-if="this.$store.state.house" />
@@ -526,8 +510,15 @@ aside.content#home {
         display: none;
       }
 
-      button {
-        padding: 6px;
+      div.overlay-start {
+        width: 24px;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        // background: linear-gradient(to right, var(--bg), transparent);
+        @include breakpoint {
+          width: 12px;
+        }
       }
     }
     div.overlay-start {
@@ -547,10 +538,10 @@ aside.content#home {
       position: absolute;
       right: 0;
       top: 0;
-      background: linear-gradient(to right, transparent, var(--bg) 16% 100%);
+      // background: linear-gradient(to right, transparent, var(--bg) 16% 100%);
       @include breakpoint {
         width: 12px;
-        background: linear-gradient(to right, transparent, var(--bg));
+        // background: linear-gradient(to right, transparent, var(--bg));
       }
     }
   }
@@ -561,7 +552,7 @@ aside.content#home {
 #sidebar-right-detail {
   width: 380px;
   // 123 62
-  top: 184px;
+  top: 123px;
   height: calc(100vh - 125px);
 }
 
