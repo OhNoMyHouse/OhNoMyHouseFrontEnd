@@ -1,12 +1,14 @@
 <template>
   <b-container v-if="this.$store.state.house" class="bv-example-row mt-3">
-    <b-card
-      :img-src="require(`assets/img/${num}.jpg`)"
-      img-alt="Image"
-      img-top
-      style="max-width: 20rem"
-      class="mb-2"
-    >
+    <b-card>
+      <b-card-img
+        :src="require(`assets/img/${Math.ceil(Math.random() * 984)}.jpg`)"
+        img-alt="Image"
+        img-top
+        style="max-width: 20rem"
+        class="mb-2"
+      >
+      </b-card-img>
       <b-card-text>
         <strong>{{ this.$store.state.house.aptName }}</strong>
       </b-card-text>

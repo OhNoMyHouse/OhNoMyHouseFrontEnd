@@ -531,7 +531,7 @@ aside.content#home {
       height: 100%;
       position: absolute;
       left: 0;
-      background: linear-gradient(to right, var(--bg), transparent);
+      // background: linear-gradient(to right, var(--bg), transparent);
       @include breakpoint {
         width: 12px;
       }
