@@ -40,7 +40,7 @@ export default {
   computed: {
     ...mapGetters(["sido", "gugun", "dong", "apt"]),
     sido() {
-      console.log(this.$store.state.sido);
+      // console.log(this.$store.state.sido);
       return this.$store.state.sido;
     },
   },

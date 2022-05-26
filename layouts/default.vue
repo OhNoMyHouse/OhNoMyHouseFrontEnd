@@ -12,7 +12,7 @@ export default Vue.extend({
     searchHouses() {
       if (this.word != "") {
         this.$store.dispatch(Constant.GET_HOUSES, { word: this.word });
-        console.log(this.word);
+        this.$router.push({ path: "/" });
       } else {
         alert("검색어를 입력해 주세요");
       }

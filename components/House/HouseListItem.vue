@@ -15,11 +15,20 @@
             <b-card-text style="font-size: small">
               {{ house.sidoName | sido }} {{ house.gugunName }}
               {{ house.dongName }} <br />
-              {{ house.aptName }}<br />
-              실거래가 : {{ house.recentPrice }} 만원 <br />
-              <button @click="setState">
-                {{ favoriteState ? "★" : "☆" }}
-              </button>
+              <div v-for="(favorite, index) in favorites" :key="index">
+                <div
+                  v-if="
+                    (favoriteState =
+                      favorite.name == house.aptName ? true : false)
+                  "
+                >
+                  {{ house.aptName }}<br />
+                  실거래가 : {{ house.recentPrice }} 만원 <br />
+                  <button @click="setState(house.aptName)">
+                    {{ favoriteState ? "★" : "☆" }}
+                  </button>
+                </div>
+              </div>
             </b-card-text>
           </b-card-body>
         </b-col>
@@ -38,10 +47,12 @@ export default {
     return {
       isColor: false,
       activeTag: "All",
+      favoriteState: false,
     };
   },
   props: {
     house: Object,
+    favorites: Array,
   },
   methods: {
     ...mapGetters(["houses"]),
@@ -49,14 +60,17 @@ export default {
     colorChange(flag) {
       this.isColor = flag;
     },
-    setState(envent) {
+    setState(name) {
       this.favoriteState = !this.favoriteState;
-      console.log(envent);
       if (this.favoriteState) {
-        this.getFavorites();
+        this.addFavorite();
       } else {
-        this.deleteFavorites(envent);
+        this.getFavorite(name);
+        this.deleteFavorite();
       }
+    },
+    getFavorite(n) {
+      this.$store.dispatch(Constant.GET_FAVORITE, n);
     },
     addFavorite() {
       const ads =
@@ -65,7 +79,7 @@ export default {
         this.house.gugunName +
         " " +
         this.house.dongName;
-      console.log(ads + " " + this.house.recentPrice);
+
       this.$store
         .dispatch(Constant.REGIST_FAVORITE, {
           favorite: {
@@ -78,11 +92,8 @@ export default {
           alert("favorite 등록에 성공하였습니다.");
         });
     },
-    deleteFavorites(envent) {
-      this.$store.dispatch(Constant.DELETE_FAVORITE, envent).then(() => {
-        alert("삭제에 성공하였습니다.");
-        this.getFavorites();
-      });
+    deleteFavorite() {
+      this.$store.dispatch(Constant.DELETE_FAVORITE, this.$store.state.idx);
     },
   },
 

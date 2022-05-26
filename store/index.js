@@ -18,7 +18,8 @@ export const state = () => ({
   //-----favorite
   favorites: [],
   favorite: {},
-
+  idx: null,
+  //-----login
   isLogin: false,
   isLoginError: false,
   userInfo: null,
@@ -91,7 +92,8 @@ export const mutations = {
     state.favorites = payload.favorites;
   },
   [Constant.SET_FAVORITE](state, payload) {
-    state.favorite = payload.favorite;
+    state.idx = payload.data;
+    console.log(state.idx + " sssssssssss");
   },
   //-----user
   SET_IS_LOGIN: (state, isLogin) => {
@@ -190,12 +192,14 @@ export const actions = {
   },
   [Constant.GET_FAVORITE](context, payload) {
     http
-      .get(`favorite/${payload.idx}`)
-      .then(({ data }) =>
-        context.commit(Constant.SET_FAVORITE, { favorite: data })
-      );
+      .get(`favorite/${payload}`)
+      .then(({ data }) => {
+        console.log("data" + data);
+        context.commit(Constant.SET_FAVORITE, { data })
+      });
   },
   [Constant.DELETE_FAVORITE](context, payload) {
+    console.log("constant delete favorite" + payload);
     return http.delete(`favorite/${payload}`).then(() => {
       console.log("store : favorite 삭제에 성공하였습니다.");
     });

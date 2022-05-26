@@ -1,7 +1,6 @@
 <script lang="ts">
 import Vue from "vue";
 import Constant from "@/common/Constant";
-import { mapGetters } from "vuex";
 
 export default Vue.extend({
   data: () => ({
@@ -11,20 +10,14 @@ export default Vue.extend({
   }),
 
   methods: {
-    setState(envent: any) {
-      this.favoriteState = !this.favoriteState;
-      console.log(envent);
-      if (this.favoriteState) {
-        this.getFavorites();
-      } else {
-        this.deleteFavorites(envent);
-      }
+    setState(event: any) {
+      this.deleteFavorites(event);
     },
     getFavorites() {
       this.$store.dispatch(Constant.GET_FAVORITES);
     },
-    deleteFavorites(envent: any) {
-      this.$store.dispatch(Constant.DELETE_FAVORITE, envent).then(() => {
+    deleteFavorites(event: any) {
+      this.$store.dispatch(Constant.DELETE_FAVORITE, event).then(() => {
         alert("삭제에 성공하였습니다.");
         this.getFavorites();
       });
@@ -46,38 +39,41 @@ export default Vue.extend({
   <aside class="content" id="library">
     <section class="container">
       <h1>Favorite List</h1>
-      <b-card
-        v-for="favorite in favorites"
-        :key="favorite.idx"
-        :house="favorite"
-        no-body
-        class="overflow-hidden"
-        style="max-width: 800px"
-        :value="favorite.idx"
-      >
-        <b-row no-gutters>
-          <b-col md="4">
-            <b-card-img
-              src="@/assets/img/house.png"
-              style="width: 120px; height: 100px"
-              alt="Image"
-              class="rounded-0"
-            ></b-card-img>
-          </b-col>
-          <b-col md="8">
-            <b-card-body>
-              <b-card-text style="font-size: small">
-                {{ favorite.name }} <br />
-                {{ favorite.address }}<br />
-                실거래가 : {{ favorite.price }} 만원 <br />
-                <button @click="setState(favorite.idx)">
-                  {{ favoriteState ? "★" : "☆" }}
-                </button>
-              </b-card-text>
-            </b-card-body>
-          </b-col>
-        </b-row>
-      </b-card>
+      <div v-if="favorites && favorites.length != 0">
+        <b-card
+          v-for="favorite in favorites"
+          :key="favorite.idx"
+          :house="favorite"
+          no-body
+          class="overflow-hidden"
+          style="max-width: 800px"
+          :value="favorite.idx"
+        >
+          <b-row no-gutters>
+            <b-col md="4">
+              <b-card-img
+                src="@/assets/img/house.png"
+                style="width: 120px; height: 100px"
+                alt="Image"
+                class="rounded-0"
+              ></b-card-img>
+            </b-col>
+            <b-col md="8">
+              <b-card-body>
+                <b-card-text style="font-size: small">
+                  {{ favorite.name }} <br />
+                  {{ favorite.address }}<br />
+                  실거래가 : {{ favorite.price }} 만원 <br />
+                  <button @click="setState(favorite.idx)">★</button>
+                </b-card-text>
+              </b-card-body>
+            </b-col>
+          </b-row>
+        </b-card>
+      </div>
+      <div v-else>
+        <b-alert show>주택 목록이 없습니다.</b-alert>
+      </div>
     </section>
   </aside>
 </template>

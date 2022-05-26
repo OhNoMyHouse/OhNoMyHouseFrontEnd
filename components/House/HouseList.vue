@@ -5,6 +5,7 @@
       v-for="(house, index) in houses"
       :key="index"
       :house="house"
+      :favorites="favorites"
     />
   </b-container>
   <b-container v-else class="bv-example-row mt-3">
@@ -16,6 +17,7 @@
 
 <script>
 import HouseListItem from "@/components/house/HouseListItem.vue";
+import Constant from "@/common/Constant";
 import { mapGetters } from "vuex";
 
 export default {
@@ -26,6 +28,18 @@ export default {
   },
   computed: {
     ...mapGetters(["houses"]),
+    favorites() {
+      return this.$store.state.favorites;
+    },
+  },
+  created() {
+    console.log("FavoriteCreated Comp.");
+    this.getFavorites();
+  },
+  methods: {
+    getFavorites() {
+      this.$store.dispatch(Constant.GET_FAVORITES);
+    },
   },
 };
 </script>
