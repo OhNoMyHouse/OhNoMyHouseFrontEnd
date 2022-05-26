@@ -12,6 +12,22 @@
                 <div v-if="(favoriteState = favorite.name == house.aptName ? true : false)">
                   {{ house.aptName }}<br />
                   실거래가 : {{ house.recentPrice }} 만원 <br />
+              {{ house.sidoName | sido }} {{ house.gugunName }}
+              {{ house.dongName }} <br />
+              {{ house.aptName }}<br />
+              실거래가 : {{ house.recentPrice }} 만원 <br />
+              <div v-for="(favorite, index) in favorites" :key="index">
+                <div
+                  v-if="
+                    (favoriteState =
+                      favorite.name == house.aptName ? true : false)
+                  "
+                >
+                  <button @click="setState(house.aptName)">
+                    {{ favoriteState ? "★" : "☆" }}
+                  </button>
+                </div>
+                <div v-if="favoriteState == false">
                   <button @click="setState(house.aptName)">
                     {{ favoriteState ? "★" : "☆" }}
                   </button>

@@ -86,7 +86,7 @@ export const mutations = {
     state.dong = payload.dong;
   },
   [Constant.SET_APT](state, payload) {
-    state.apt = payload.apt;
+    state.houses = payload.apt;
   },
   //-----favorite
   [Constant.SET_FAVORITES](state, payload) {
