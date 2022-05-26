@@ -8,12 +8,6 @@
         <b-col md="8">
           <b-card-body>
             <b-card-text style="font-size: small">
-              {{ house.sidoName | sido }} {{ house.gugunName }} {{ house.dongName }} <br />
-              {{ house.aptName }}<br />
-              실거래가 : {{ house.recentPrice }} 만원 <br />
-              <button @click="setState(house.aptName)">
-                {{ favoriteState ? "★" : "☆" }}
-              </button>
               <div v-for="(favorite, index) in favorites" :key="index">
                 <div v-if="(favoriteState = favorite.name == house.aptName ? true : false)">
                   {{ house.aptName }}<br />
@@ -23,6 +17,12 @@
                   </button>
                 </div>
               </div>
+              {{ house.sidoName | sido }} {{ house.gugunName }} {{ house.dongName }} <br />
+              {{ house.aptName }}<br />
+              실거래가 : {{ house.recentPrice }} 만원 <br />
+              <button @click="setState(house.aptName)">
+                {{ favoriteState ? "★" : "☆" }}
+              </button>
             </b-card-text>
           </b-card-body>
         </b-col>
