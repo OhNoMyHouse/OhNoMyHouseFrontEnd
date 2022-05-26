@@ -68,7 +68,10 @@ export default Vue.extend({
         >
           <Icon name="menu" />
         </button>
-        <NuxtLink class="home" to="/"><Icon name="logo" /></NuxtLink>
+        <NuxtLink class="home" to="/"
+          ><img src="@/assets/logo.svg" height="35" alt="" />
+          <h5>OhNoMyHouse</h5></NuxtLink
+        >
       </aside>
 
       <aside class="search">
@@ -85,16 +88,22 @@ export default Vue.extend({
       </aside>
 
       <aside class="user">
-        <b-navbar-nav class="ml-auto" v-if="userInfo">
+        <b-nav class="ml-auto" v-if="userInfo">
           <button to="/user/mypage" class="avatar action">
             <Icon name="user" />
           </button>
-          <b-nav-item
+          <b-button
+            variant="danger"
+            style="
+              border: 1px solid transparent;
+              margin-left: 8px;
+              height: 35px;
+            "
             class="link align-self-center"
             @click.prevent="onClickLogout"
-            >로그아웃</b-nav-item
+            >로그아웃</b-button
           >
-        </b-navbar-nav>
+        </b-nav>
         <b-navbar-nav class="ml-auto" v-else>
           <b-button
             to="/user/login"
@@ -132,10 +141,6 @@ export default Vue.extend({
             ><Icon name="library" />
             <h6>Favorite</h6></NuxtLink
           >
-          <NuxtLink to="/history"
-            ><Icon name="history" />
-            <h6>History</h6></NuxtLink
-          >
         </aside>
       </aside>
 
@@ -147,7 +152,8 @@ export default Vue.extend({
 <style lang="scss">
 @import "@/assets/css/mixins.scss";
 
-h6 {
+h6,
+h5 {
   margin: 0;
 }
 

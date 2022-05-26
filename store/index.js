@@ -24,6 +24,8 @@ export const state = () => ({
   isLogin: false,
   isLoginError: false,
   userInfo: null,
+  //-----selectedPos
+  selectedPos: {},
 });
 
 export const getters = {
@@ -36,6 +38,10 @@ export const getters = {
   houses(state) {
     console.log("store getters houses.");
     return state.houses;
+  },
+  house(state) {
+    console.log("store getters house.");
+    return state.house;
   },
   //-----filter
   sido(state) {
@@ -60,6 +66,11 @@ export const getters = {
   },
   checkUserInfo: function (state) {
     return state.userInfo;
+  },
+  //-----selectedPos
+  selectedPos(state) {
+    console.log("store getters selectedPos");
+    return state.selectedPos;
   },
 };
 
@@ -112,10 +123,18 @@ export const mutations = {
 export const actions = {
   //-----notice
   [Constant.GET_NOTICES](context) {
-    http.get("notice").then(({ data }) => context.commit(Constant.SET_NOTICES, { notices: data }));
+    http
+      .get("notice")
+      .then(({ data }) =>
+        context.commit(Constant.SET_NOTICES, { notices: data })
+      );
   },
   [Constant.GET_NOTICE](context, payload) {
-    http.get(`notice/${payload.idx}`).then(({ data }) => context.commit(Constant.SET_NOTICE, { notice: data }));
+    http
+      .get(`notice/${payload.idx}`)
+      .then(({ data }) =>
+        context.commit(Constant.SET_NOTICE, { notice: data })
+      );
   },
   [Constant.MODIFY_NOTICE](context, payload) {
     return http
@@ -177,15 +196,17 @@ export const actions = {
   },
   //-----favorite
   [Constant.GET_FAVORITES](context) {
-    http.get("favorite").then(({ data }) => context.commit(Constant.SET_FAVORITES, { favorites: data }));
+    http
+      .get("favorite")
+      .then(({ data }) =>
+        context.commit(Constant.SET_FAVORITES, { favorites: data })
+      );
   },
   [Constant.GET_FAVORITE](context, payload) {
-    http
-      .get(`favorite/${payload}`)
-      .then(({ data }) => {
-        console.log("data" + data);
-        context.commit(Constant.SET_FAVORITE, { data })
-      });
+    http.get(`favorite/${payload}`).then(({ data }) => {
+      console.log("data" + data);
+      context.commit(Constant.SET_FAVORITE, { data });
+    });
   },
   [Constant.DELETE_FAVORITE](context, payload) {
     console.log("constant delete favorite" + payload);
@@ -219,7 +240,7 @@ export const actions = {
           commit("SET_IS_LOGIN_ERROR", true);
         }
       },
-      () => { }
+      () => {}
     );
   },
   getUserInfo({ commit }, token) {

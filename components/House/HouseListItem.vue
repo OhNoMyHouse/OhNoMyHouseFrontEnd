@@ -1,9 +1,15 @@
 <template>
-  <div v-if="house.recentPrice != null">
+  <div v-if="house.recentPrice != null" @click="selectItem">
     <b-card no-body class="overflow-hidden" style="max-width: 440px">
       <b-row no-gutters>
         <b-col md="4">
-          <b-card-img :src="require(`assets/img/${num}.jpg`)" style="width: 120px; height: 100px" alt="Image" class="rounded-0"> </b-card-img>
+          <b-card-img
+            :src="require(`assets/img/${Math.ceil(Math.random() * 984)}.jpg`)"
+            style="width: 120px; height: 100px"
+            alt="Image"
+            class="rounded-0"
+          >
+          </b-card-img>
         </b-col>
         <b-col md="8">
           <b-card-body>
@@ -33,7 +39,8 @@
                   </button>
                 </div>
               </div> -->
-              {{ house.sidoName | sido }} {{ house.gugunName }} {{ house.dongName }} <br />
+              {{ house.sidoName | sido }} {{ house.gugunName }}
+              {{ house.dongName }} <br />
               {{ house.aptName }}<br />
               실거래가 : {{ house.recentPrice }} 만원 <br />
               <button @click="setState(house.aptName)">
@@ -49,7 +56,7 @@
 
 <script>
 import Constant from "@/common/Constant";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 export default {
   name: "HouseListItem",
   data() {
@@ -57,7 +64,6 @@ export default {
       isColor: false,
       activeTag: "All",
       favoriteState: false,
-      num: Math.ceil(Math.random() * 984),
     };
   },
   props: {
@@ -66,6 +72,7 @@ export default {
   },
   methods: {
     ...mapGetters(["houses"]),
+    ...mapActions(["getUserInfo"]),
     selectHouse() {},
     colorChange(flag) {
       this.isColor = flag;
@@ -92,7 +99,12 @@ export default {
       this.$store.dispatch(Constant.GET_FAVORITE, n);
     },
     addFavorite() {
-      const ads = this.house.sidoName.toString().substr(0, 2) + " " + this.house.gugunName + " " + this.house.dongName;
+      const ads =
+        this.house.sidoName.toString().substr(0, 2) +
+        " " +
+        this.house.gugunName +
+        " " +
+        this.house.dongName;
 
       this.$store
         .dispatch(Constant.REGIST_FAVORITE, {
@@ -108,6 +120,13 @@ export default {
     },
     deleteFavorite() {
       this.$store.dispatch(Constant.DELETE_FAVORITE, this.$store.state.idx);
+    },
+    selectItem() {
+      this.$store.state.selectedPos = {
+        lat: this.house.lat,
+        lng: this.house.lng,
+      };
+      this.$store.state.house = this.house;
     },
   },
 

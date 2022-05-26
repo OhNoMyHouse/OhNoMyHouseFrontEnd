@@ -26,11 +26,17 @@ export default Vue.extend({
     kakao.maps.load(this.initMap);
   },
   computed: {
-    ...mapGetters(["houses"]),
+    ...mapGetters(["houses", "house", "selectedPos"]),
   },
   watch: {
     houses(value) {
       this.updateMap(value);
+    },
+    house() {
+      this.detailState = true;
+    },
+    selectedPos(value) {
+      this.setCenter(value.lat, value.lng);
     },
   },
   methods: {
@@ -333,7 +339,6 @@ export default Vue.extend({
       this.bounds.extend(position);
 
       kakao.maps.event.addListener(marker, "click", () => {
-        this.detailStateOn();
         this.$store.state.house = data;
       });
     },
@@ -404,7 +409,7 @@ export default Vue.extend({
     <div class="map_wrap">
       <div
         id="map"
-        style="width: calc(100vw - 452px); height: calc(100vh - 187px)"
+        style="width: calc(100vw - 452px); height: calc(100vh - 128px)"
       ></div>
       <ul id="category">
         <li
@@ -560,8 +565,8 @@ aside.content#home {
 #sidebar-right-detail {
   width: 380px;
   // 123 62
-  top: 123px;
-  height: calc(100vh - 125px);
+  top: 127px;
+  height: calc(100vh - 127px);
 }
 
 .map_wrap,

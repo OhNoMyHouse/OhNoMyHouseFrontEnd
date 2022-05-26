@@ -52,7 +52,9 @@ export default Vue.extend({
           <b-row no-gutters>
             <b-col md="4">
               <b-card-img
-                src="@/assets/img/house.png"
+                :src="
+                  require(`assets/img/${Math.ceil(Math.random() * 984)}.jpg`)
+                "
                 style="width: 120px; height: 100px"
                 alt="Image"
                 class="rounded-0"
