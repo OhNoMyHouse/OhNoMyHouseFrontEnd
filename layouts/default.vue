@@ -1,6 +1,7 @@
 <script lang="ts">
 import Vue from "vue";
 import Constant from "@/common/Constant.js";
+import { mapState, mapMutations } from "vuex";
 
 export default Vue.extend({
   name: "DefaultLayout",
@@ -8,6 +9,9 @@ export default Vue.extend({
     sidebarCollapsed: false,
     word: "",
   }),
+  computed: {
+    ...mapState(["userInfo"]),
+  },
   methods: {
     searchHouses() {
       if (this.word != "") {
@@ -17,6 +21,14 @@ export default Vue.extend({
         alert("검색어를 입력해 주세요");
       }
     },
+    ...mapMutations(["SET_IS_LOGIN", "SET_USER_INFO"]),
+    onClickLogout() {
+      // console.log("memberStore : ", ms);
+      this.SET_IS_LOGIN(false);
+      this.SET_USER_INFO(null);
+      sessionStorage.removeItem("access-token");
+      if (this.$route.path != "/") this.$router.push({ path: "/" });
+    },
   },
 });
 </script>
@@ -25,10 +37,7 @@ export default Vue.extend({
   <div :id="$route.name ? $route.name + '-page' : 'error-page'">
     <header class="navigation">
       <aside class="brand">
-        <button
-          class="menu action"
-          @click="sidebarCollapsed = !sidebarCollapsed"
-        >
+        <button class="menu action" @click="sidebarCollapsed = !sidebarCollapsed">
           <Icon name="menu" />
         </button>
         <NuxtLink class="home" to="/"><Icon name="logo" /></NuxtLink>
@@ -38,41 +47,22 @@ export default Vue.extend({
         <button class="action" @click="searchHouses">
           <Icon name="search" />
         </button>
-        <input
-          type="text"
-          placeholder="Search"
-          v-model="word"
-          @keyup.enter="searchHouses"
-        />
+        <input type="text" placeholder="Search" v-model="word" @keyup.enter="searchHouses" />
         <button class="action"><Icon name="microphone" /></button>
       </aside>
 
       <aside class="user">
-        <button class="notifications action">
-          <Icon name="notifications" />
-        </button>
-        <button class="search action"><Icon name="search" /></button>
-        <button class="avatar action"><Icon name="user" /></button>
-        <b-button
-          to="/user/login"
-          style="
-            background: #1a73e8;
-            border: 1px solid transparent;
-            margin-left: 8px;
-            height: 35px;
-          "
-          >로그인</b-button
-        >
+        <b-navbar-nav class="ml-auto" v-if="userInfo">
+          <button to="/user/mypage" class="avatar action"><Icon name="user" /></button>
+          <b-nav-item class="link align-self-center" @click.prevent="onClickLogout">로그아웃</b-nav-item>
+        </b-navbar-nav>
+        <b-navbar-nav class="ml-auto" v-else>
+          <b-button to="/user/login" style="background: #1a73e8; border: 1px solid transparent; margin-left: 8px; height: 35px">로그인</b-button>
+        </b-navbar-nav>
       </aside>
     </header>
 
-    <main
-      :class="
-        $route.name === null || $route.name === 'watch'
-          ? { sidebar: sidebarCollapsed }
-          : { compact: sidebarCollapsed }
-      "
-    >
+    <main :class="$route.name === null || $route.name === 'watch' ? { sidebar: sidebarCollapsed } : { compact: sidebarCollapsed }">
       <aside class="sidebar">
         <aside class="links">
           <NuxtLink to="/"
