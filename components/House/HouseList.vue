@@ -1,7 +1,12 @@
 <template>
   <b-container v-if="houses && houses.length != 0" class="bv-example-row mt-3">
     {{ houses.length }} 개의 검색 목록입니다.
-    <house-list-item v-for="(house, index) in houses" :key="index" :house="house" :favorites="favorites" />
+    <house-list-item
+      v-for="(house, index) in houses"
+      :key="index"
+      :house="house"
+      :favorites="favorites"
+    />
   </b-container>
   <b-container v-else class="bv-example-row mt-3">
     <b-row>
