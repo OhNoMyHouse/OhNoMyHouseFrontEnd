@@ -302,6 +302,7 @@ export default Vue.extend({
     },
     // -----------------------------------category search-----------------------------------
     updateMap(houses) {
+      console.log("houses" + houses);
       this.clearMarkers(null);
       this.clusterer.clear();
       this.bounds = new kakao.maps.LatLngBounds();
