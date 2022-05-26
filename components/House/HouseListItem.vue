@@ -3,25 +3,19 @@
     <b-card no-body class="overflow-hidden" style="max-width: 440px">
       <b-row no-gutters>
         <b-col md="4">
-          <b-card-img
-            src="@/assets/img/house.png"
-            style="width: 120px; height: 100px"
-            alt="Image"
-            class="rounded-0"
-          ></b-card-img>
+          <b-card-img :src="require(`assets/img/${num}.jpg`)" style="width: 120px; height: 100px" alt="Image" class="rounded-0"> </b-card-img>
         </b-col>
         <b-col md="8">
           <b-card-body>
             <b-card-text style="font-size: small">
-              {{ house.sidoName | sido }} {{ house.gugunName }}
-              {{ house.dongName }} <br />
+              {{ house.sidoName | sido }} {{ house.gugunName }} {{ house.dongName }} <br />
+              {{ house.aptName }}<br />
+              실거래가 : {{ house.recentPrice }} 만원 <br />
+              <button @click="setState(house.aptName)">
+                {{ favoriteState ? "★" : "☆" }}
+              </button>
               <div v-for="(favorite, index) in favorites" :key="index">
-                <div
-                  v-if="
-                    (favoriteState =
-                      favorite.name == house.aptName ? true : false)
-                  "
-                >
+                <div v-if="(favoriteState = favorite.name == house.aptName ? true : false)">
                   {{ house.aptName }}<br />
                   실거래가 : {{ house.recentPrice }} 만원 <br />
                   <button @click="setState(house.aptName)">
@@ -40,7 +34,6 @@
 <script>
 import Constant from "@/common/Constant";
 import { mapGetters } from "vuex";
-
 export default {
   name: "HouseListItem",
   data() {
@@ -48,6 +41,7 @@ export default {
       isColor: false,
       activeTag: "All",
       favoriteState: false,
+      num: Math.ceil(Math.random() * 1000),
     };
   },
   props: {
@@ -73,12 +67,7 @@ export default {
       this.$store.dispatch(Constant.GET_FAVORITE, n);
     },
     addFavorite() {
-      const ads =
-        this.house.sidoName.toString().substr(0, 2) +
-        " " +
-        this.house.gugunName +
-        " " +
-        this.house.dongName;
+      const ads = this.house.sidoName.toString().substr(0, 2) + " " + this.house.gugunName + " " + this.house.dongName;
 
       this.$store
         .dispatch(Constant.REGIST_FAVORITE, {
