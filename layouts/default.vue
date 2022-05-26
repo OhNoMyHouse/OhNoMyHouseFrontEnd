@@ -157,6 +157,7 @@ div {
     position: sticky;
     top: 0;
     border-bottom: 1px solid var(--gray);
+    background-color: yellow;
     @include flex(center, space-between, $gap: 16px);
 
     aside {
@@ -259,6 +260,7 @@ div {
         }
 
         aside {
+          background-color: yellow;
           padding: 12px 12px 12px 0;
           @include flex($dir: column);
           @include breakpoint {

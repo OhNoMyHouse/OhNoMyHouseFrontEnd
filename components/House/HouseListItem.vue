@@ -8,15 +8,31 @@
         <b-col md="8">
           <b-card-body>
             <b-card-text style="font-size: small">
-              <div v-for="(favorite, index) in favorites" :key="index">
+              <!-- <div v-for="(favorite, index) in favorites" :key="index">
                 <div v-if="(favoriteState = favorite.name == house.aptName ? true : false)">
                   {{ house.aptName }}<br />
                   실거래가 : {{ house.recentPrice }} 만원 <br />
+              {{ house.sidoName | sido }} {{ house.gugunName }}
+              {{ house.dongName }} <br />
+              {{ house.aptName }}<br />
+              실거래가 : {{ house.recentPrice }} 만원 <br />
+              <div v-for="(favorite, index) in favorites" :key="index">
+                <div
+                  v-if="
+                    (favoriteState =
+                      favorite.name == house.aptName ? true : false)
+                  "
+                >
                   <button @click="setState(house.aptName)">
                     {{ favoriteState ? "★" : "☆" }}
                   </button>
                 </div>
-              </div>
+                <div v-if="favoriteState == false">
+                  <button @click="setState(house.aptName)">
+                    {{ favoriteState ? "★" : "☆" }}
+                  </button>
+                </div>
+              </div> -->
               {{ house.sidoName | sido }} {{ house.gugunName }} {{ house.dongName }} <br />
               {{ house.aptName }}<br />
               실거래가 : {{ house.recentPrice }} 만원 <br />
@@ -41,7 +57,7 @@ export default {
       isColor: false,
       activeTag: "All",
       favoriteState: false,
-      num: Math.ceil(Math.random() * 1000),
+      num: Math.ceil(Math.random() * 984),
     };
   },
   props: {
@@ -54,13 +70,22 @@ export default {
     colorChange(flag) {
       this.isColor = flag;
     },
-    setState(name) {
-      this.favoriteState = !this.favoriteState;
-      if (this.favoriteState) {
-        this.addFavorite();
+    async setState(name) {
+      let token = sessionStorage.getItem("access-token");
+      if (this.$store.getters.checkUserInfo == null && token) {
+        await this.getUserInfo(token);
+      }
+      if (this.$store.getters.checkUserInfo === null) {
+        alert("로그인이 필요한 페이지입니다..");
+        this.$router.push({ path: `/user/login` });
       } else {
-        this.getFavorite(name);
-        this.deleteFavorite();
+        this.favoriteState = !this.favoriteState;
+        if (this.favoriteState) {
+          this.addFavorite();
+        } else {
+          this.getFavorite(name);
+          this.deleteFavorite();
+        }
       }
     },
     getFavorite(n) {

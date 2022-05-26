@@ -6,21 +6,16 @@
         {{ ss.sidoName }}
       </option>
     </select>
-    <!-- <b-form-select
-      v-model="sidoCode"
-      :options="sido"
-      @change="gugunList"
-    ></b-form-select> -->
-    <select class="form-control" id="gugun">
+    <select class="form-control" id="gugun" @change="dongList">
       <option value="*">구/군</option>
       <option v-for="(gg, index) in gugun" :value="gg.gugunCode" :key="index">
         {{ gg.gugunName }}
       </option>
     </select>
-    <select class="form-control" id="dong" @click="getDong()">
+    <select class="form-control" id="dong" @change="aptList">
       <option value="*">동</option>
-      <option v-for="(dd, index) in dong" :value="sid.dongCode" :key="index">
-        {{ dd.sidoName }}
+      <option v-for="(dd, index) in dong" :value="dd.dongCode" :key="index">
+        {{ dd.dongName }}
       </option>
     </select>
   </aside>
@@ -40,8 +35,17 @@ export default {
   computed: {
     ...mapGetters(["sido", "gugun", "dong", "apt"]),
     sido() {
-      // console.log(this.$store.state.sido);
       return this.$store.state.sido;
+    },
+    gugun() {
+      return this.$store.state.gugun;
+    },
+    dong() {
+      return this.$store.state.dong;
+    },
+    apt() {
+      console.log("aptlist" + this.$store.state.apt);
+      return this.$store.state.apt;
     },
   },
   created() {
@@ -55,10 +59,14 @@ export default {
       Constant.GET_APT,
     ]),
     gugunList(event) {
-      console.log(event.target.value);
-      console.log(this);
       this.getGugun({ sido: event.target.value });
-      // this.$store.dispatch(Constant.GET_GUGUN, { sido: event.target.value });
+    },
+    dongList(event) {
+      this.getDong({ gugun: event.target.value });
+    },
+    aptList(event) {
+      this.getApt({ dong: event.target.value });
+      console.log("getAptList" + this.$store.state.apt);
     },
   },
 };
