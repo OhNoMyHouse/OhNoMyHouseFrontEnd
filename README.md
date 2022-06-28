@@ -1,10 +1,25 @@
 ### 🌐 OhNoMyHouse
 
-### 📦️ Installation
-
-[Node.js](https://nodejs.org/en/download) is required for this project to run. Node.js natively comes with npm, but I recommend using yarn over it, as it is faster. You can install yarn in your machine by using `npm install yarn -g` command.
-
-- Install dependencies: `yarn` or `npm install`.
-- Start the project:
-  - in development mode: `yarn dev` or `npm run dev`,
-  - in production mode: First, run `yarn build` or `npm run build` then run `yarn serve` or `npm run serve`.
+![슬라이드1](https://user-images.githubusercontent.com/30463982/176214814-e72c0993-584a-49b6-838c-adc65425a18b.PNG)
+![슬라이드2](https://user-images.githubusercontent.com/30463982/176214816-d8e3e81f-c795-4c59-9ca0-98101efe1000.PNG)
+![슬라이드3](https://user-images.githubusercontent.com/30463982/176214817-f29796ef-c409-46c7-94de-6594d87cfffa.PNG)
+![슬라이드4](https://user-images.githubusercontent.com/30463982/176214819-c94da1b8-49ff-4d26-b680-047668d91226.PNG)
+![슬라이드5](https://user-images.githubusercontent.com/30463982/176214755-1d48eff6-16a7-4038-9e3f-c7c46cb09a8a.PNG)
+![슬라이드6](https://user-images.githubusercontent.com/30463982/176214761-8cee0132-b9f7-4e8b-a22a-ad2f341e460e.PNG)
+![슬라이드7](https://user-images.githubusercontent.com/30463982/176214767-1dd34e2f-eff1-4959-8e4a-d8c82e2205a5.PNG)
+![슬라이드8](https://user-images.githubusercontent.com/30463982/176214771-63d5d995-e946-4a8e-a548-e45e1a8bc02c.PNG)
+![슬라이드9](https://user-images.githubusercontent.com/30463982/176214774-0eb31a90-7546-4358-9405-fd0c48b66a90.PNG)
+![슬라이드10](https://user-images.githubusercontent.com/30463982/176214778-34623e1f-1663-4f6d-bdc5-6413636ba01c.PNG)
+![슬라이드11](https://user-images.githubusercontent.com/30463982/176214780-c5d44136-f5f8-4156-ae86-cc2428f5b900.PNG)
+![슬라이드12](https://user-images.githubusercontent.com/30463982/176214786-232a4c81-9618-42b9-932b-9343cde7d911.PNG)
+![슬라이드13](https://user-images.githubusercontent.com/30463982/176214788-c16008bf-2a58-4302-900f-d46352d3ef99.PNG)
+![슬라이드14](https://user-images.githubusercontent.com/30463982/176214791-67800a8f-a437-4b08-9f0b-8c9db50a4cda.PNG)
+![슬라이드15](https://user-images.githubusercontent.com/30463982/176214794-23aef4f2-5e46-4cec-bc3f-a4cc8df06c77.PNG)
+![슬라이드16](https://user-images.githubusercontent.com/30463982/176214795-ac34a5c5-4d95-4b3e-8b36-b765f4b34f5e.PNG)
+![슬라이드17](https://user-images.githubusercontent.com/30463982/176214798-e4f37aa5-618f-41c5-a0dd-23f757721905.PNG)
+![슬라이드18](https://user-images.githubusercontent.com/30463982/176214800-5759c184-18c4-43c6-a04a-6aff362ff594.PNG)
+![슬라이드19](https://user-images.githubusercontent.com/30463982/176214802-7cdfff43-f0f9-4444-9958-232b81994c5e.PNG)
+![슬라이드20](https://user-images.githubusercontent.com/30463982/176214805-09dc12c9-58b5-4528-876d-36c3c9867751.PNG)
+![슬라이드21](https://user-images.githubusercontent.com/30463982/176214806-15583960-ca75-419b-b99e-c0e98f4fccf3.PNG)
+![슬라이드22](https://user-images.githubusercontent.com/30463982/176214810-8aa4359b-9ca5-4805-9b1a-bd3e28fd95f6.PNG)
+![슬라이드23](https://user-images.githubusercontent.com/30463982/176214813-fd0be0ba-a8fd-46e3-87d5-ea00fd13fd2f.PNG)
